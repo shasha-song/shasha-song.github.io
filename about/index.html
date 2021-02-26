@@ -23,12 +23,12 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"shasha-song.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="一只前端小菜鸟GitHub: https:&#x2F;&#x2F;github.com&#x2F;shasha-songEmail: &amp;#49;&amp;#49;&amp;#52;&amp;#x34;&amp;#x39;&amp;#56;&amp;#51;&amp;#x32;&amp;#x37;&amp;#55;&amp;#64;&amp;#113;&amp;#113;&amp;#46;&amp;#99;&amp;#111;&amp;#x6d;">
+<meta name="description" content="一只前端小菜鸟GitHub: https:&#x2F;&#x2F;github.com&#x2F;shasha-songEmail: &amp;#49;&amp;#x31;&amp;#x34;&amp;#x34;&amp;#x39;&amp;#56;&amp;#x33;&amp;#50;&amp;#x37;&amp;#x37;&amp;#x40;&amp;#x71;&amp;#x71;&amp;#46;&amp;#99;&amp;#111;&amp;#109;">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
 <meta property="og:url" content="https://shasha-song.github.io/about/index.html">
 <meta property="og:site_name" content="SSSの博客">
-<meta property="og:description" content="一只前端小菜鸟GitHub: https:&#x2F;&#x2F;github.com&#x2F;shasha-songEmail: &amp;#49;&amp;#49;&amp;#52;&amp;#x34;&amp;#x39;&amp;#56;&amp;#51;&amp;#x32;&amp;#x37;&amp;#55;&amp;#64;&amp;#113;&amp;#113;&amp;#46;&amp;#99;&amp;#111;&amp;#x6d;">
+<meta property="og:description" content="一只前端小菜鸟GitHub: https:&#x2F;&#x2F;github.com&#x2F;shasha-songEmail: &amp;#49;&amp;#x31;&amp;#x34;&amp;#x34;&amp;#x39;&amp;#56;&amp;#x33;&amp;#50;&amp;#x37;&amp;#x37;&amp;#x40;&amp;#x71;&amp;#x71;&amp;#46;&amp;#99;&amp;#111;&amp;#109;">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-02-26T08:01:21.000Z">
 <meta property="article:modified_time" content="2021-02-26T09:40:37.561Z">
@@ -282,7 +282,7 @@
       
       
       <div class="post-body">
-          <p>一只前端小菜鸟<br>GitHub: <a target="_blank" rel="noopener" href="https://github.com/shasha-song">https://github.com/shasha-song</a><br>Email: <a href="mailto:&#49;&#49;&#52;&#x34;&#x39;&#56;&#51;&#x32;&#x37;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#x6d;">&#49;&#49;&#52;&#x34;&#x39;&#56;&#51;&#x32;&#x37;&#55;&#64;&#113;&#113;&#46;&#99;&#111;&#x6d;</a></p>
+          <p>一只前端小菜鸟<br>GitHub: <a target="_blank" rel="noopener" href="https://github.com/shasha-song">https://github.com/shasha-song</a><br>Email: <a href="mailto:&#49;&#x31;&#x34;&#x34;&#x39;&#56;&#x33;&#50;&#x37;&#x37;&#x40;&#x71;&#x71;&#46;&#99;&#111;&#109;">&#49;&#x31;&#x34;&#x34;&#x39;&#56;&#x33;&#50;&#x37;&#x37;&#x40;&#x71;&#x71;&#46;&#99;&#111;&#109;</a></p>
 
       </div>
       
@@ -324,12 +324,26 @@
 
 
 <div class="copyright">
-  &copy; 
+  &copy; 2019 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">一只鸟</span>
+  <span class="author" itemprop="copyrightHolder">Song Shasha</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">3k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3 分钟</span>
+  </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -352,6 +366,92 @@
   
 
 
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"Uj1JM9X7G8PTG5CETJGy710i-9Nh9j0Va","app_key":"djBQuONjOv9B6RAOWDQmgfsQ","server_url":null,"security":true};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
 
 
 

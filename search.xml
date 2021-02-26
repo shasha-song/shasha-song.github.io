@@ -1,45 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hexo next搭建博客遇到的问题</title>
-    <url>/2019/12/26/hello-world/</url>
-    <content><![CDATA[<hr>
-<p>最近开始基于hexo和next搭建个人博客，中途遇到了一堆的bug以及相关的优化问题，想写这篇文章记录下。</p>
-<h3 id="设置语言"><a href="#设置语言" class="headerlink" title="设置语言"></a>设置语言</h3><p>在编辑 站点配置文件 时， 将 language 按照hexo 的官方文档设置语言,但不生效。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span> <span class="string">//</span> <span class="string">这里设置语言</span> <span class="string">简体中文</span></span><br></pre></td></tr></table></figure>
-<p>查看hexo-theme-next/languages/目录下是否有zh-Hans.yml 文件.一般是有zh-CN.yml ,所以要把zh-CN.yml文件改成名字为zh-Hans.yml就可以了<br>————————————————</p>
-<span id="more"></span>
-<h3 id="设置标题-作者-描述"><a href="#设置标题-作者-描述" class="headerlink" title="设置标题/作者/描述"></a>设置标题/作者/描述</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">草原森林</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;一片两片三四片，五片六片七八片，鸡鸭鹅，牛羊猪&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;现在开始种树啦&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">一棵树</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>按照官方文档设置，但均不生效，在命令行输入以下命令就解决了这个问题，因为是静态文件，所以可能是由于缓存的原因</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean //清理静态文件</span><br><span class="line">hexo g //生成静态文件</span><br><span class="line">hexo d //部署</span><br></pre></td></tr></table></figure>
-
-<h3 id="部署时报错"><a href="#部署时报错" class="headerlink" title="部署时报错"></a>部署时报错</h3><p>在命令行工具中输入hexo d进行部署时报以下错误</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">FATAL &#123;</span><br><span class="line">  err: <span class="built_in">Error</span>: Spawn failed</span><br><span class="line">      at ChildProcess.&lt;anonymous&gt; (D:\sblog\songssBlog\node_modules\hexo-util\lib\spawn.js:<span class="number">51</span>:<span class="number">21</span>)</span><br><span class="line">      at ChildProcess.emit (events.js:<span class="number">315</span>:<span class="number">20</span>)</span><br><span class="line">      at ChildProcess.cp.emit (D:\sblog\songssBlog\node_modules\cross-spawn\lib\enoent.js:<span class="number">34</span>:<span class="number">29</span>)</span><br><span class="line">      at Process.ChildProcess._handle.onexit (internal/child_process.js:<span class="number">277</span>:<span class="number">12</span>) &#123;</span><br><span class="line">    code: <span class="number">128</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-<p>解决办法：部署时hexo clean一次</p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="发布新文章"><a href="#发布新文章" class="headerlink" title="发布新文章"></a>发布新文章</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h4 id="清除缓存"><a href="#清除缓存" class="headerlink" title="清除缓存"></a>清除缓存</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
-<h4 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h4 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate  或者 hexo s 常用参数：-p（--port）重设端口</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h4 id="部署到服务器"><a href="#部署到服务器" class="headerlink" title="部署到服务器"></a>部署到服务器</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy 可简写为hexo d，用于将网站部署到服务器上。</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h4 id="发布文章之后的操作"><a href="#发布文章之后的操作" class="headerlink" title="发布文章之后的操作"></a>发布文章之后的操作</h4><p>一般发布文章或者修改博客后需要这些操作：清除缓存&gt;生成静态文件&gt;启动服务器，测试没问题后再部署。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>blog搭建</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
-        <tag>hexo</tag>
-        <tag>next</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>函数的防抖与节流</title>
     <url>/2020/10/02/debounce-throttle/</url>
     <content><![CDATA[<p>节流与防抖都是控制事件触发频率的方法。应用场景有很多，输入框持续输入，将输入内容远程校验、多次触发点击事件、onScroll等等。</p>
@@ -76,6 +37,45 @@
       </categories>
       <tags>
         <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo next搭建博客遇到的问题</title>
+    <url>/2019/12/26/hello-world/</url>
+    <content><![CDATA[<hr>
+<p>最近开始基于hexo和next搭建个人博客，中途遇到了一堆的bug以及相关的优化问题，想写这篇文章记录下。</p>
+<h3 id="设置语言"><a href="#设置语言" class="headerlink" title="设置语言"></a>设置语言</h3><p>在编辑 站点配置文件 时， 将 language 按照hexo 的官方文档设置语言,但不生效。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span> <span class="string">//</span> <span class="string">这里设置语言</span> <span class="string">简体中文</span></span><br></pre></td></tr></table></figure>
+<p>查看hexo-theme-next/languages/目录下是否有zh-Hans.yml 文件.一般是有zh-CN.yml ,所以要把zh-CN.yml文件改成名字为zh-Hans.yml就可以了<br>————————————————</p>
+<span id="more"></span>
+<h3 id="设置标题-作者-描述"><a href="#设置标题-作者-描述" class="headerlink" title="设置标题/作者/描述"></a>设置标题/作者/描述</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">草原森林</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;一片两片三四片，五片六片七八片，鸡鸭鹅，牛羊猪&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;现在开始种树啦&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">一棵树</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>按照官方文档设置，但均不生效，在命令行输入以下命令就解决了这个问题，因为是静态文件，所以可能是由于缓存的原因</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean //清理静态文件</span><br><span class="line">hexo g //生成静态文件</span><br><span class="line">hexo d //部署</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署时报错"><a href="#部署时报错" class="headerlink" title="部署时报错"></a>部署时报错</h3><p>在命令行工具中输入hexo d进行部署时报以下错误</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">FATAL &#123;</span><br><span class="line">  err: <span class="built_in">Error</span>: Spawn failed</span><br><span class="line">      at ChildProcess.&lt;anonymous&gt; (D:\sblog\songssBlog\node_modules\hexo-util\lib\spawn.js:<span class="number">51</span>:<span class="number">21</span>)</span><br><span class="line">      at ChildProcess.emit (events.js:<span class="number">315</span>:<span class="number">20</span>)</span><br><span class="line">      at ChildProcess.cp.emit (D:\sblog\songssBlog\node_modules\cross-spawn\lib\enoent.js:<span class="number">34</span>:<span class="number">29</span>)</span><br><span class="line">      at Process.ChildProcess._handle.onexit (internal/child_process.js:<span class="number">277</span>:<span class="number">12</span>) &#123;</span><br><span class="line">    code: <span class="number">128</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>解决办法：部署时hexo clean一次</p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="发布新文章"><a href="#发布新文章" class="headerlink" title="发布新文章"></a>发布新文章</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h4 id="清除缓存"><a href="#清除缓存" class="headerlink" title="清除缓存"></a>清除缓存</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+<h4 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h4 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate  或者 hexo s 常用参数：-p（--port）重设端口</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h4 id="部署到服务器"><a href="#部署到服务器" class="headerlink" title="部署到服务器"></a>部署到服务器</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy 可简写为hexo d，用于将网站部署到服务器上。</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h4 id="发布文章之后的操作"><a href="#发布文章之后的操作" class="headerlink" title="发布文章之后的操作"></a>发布文章之后的操作</h4><p>一般发布文章或者修改博客后需要这些操作：清除缓存&gt;生成静态文件&gt;启动服务器，测试没问题后再部署。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>blog搭建</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+        <tag>hexo</tag>
+        <tag>next</tag>
       </tags>
   </entry>
   <entry>
