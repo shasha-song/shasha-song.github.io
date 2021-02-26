@@ -25,9 +25,9 @@
   </script>
 <meta name="description" content="现在开始种树啦">
 <meta property="og:type" content="website">
-<meta property="og:title" content="是你的技术博客">
+<meta property="og:title" content="草原森林">
 <meta property="og:url" content="https://shasha-song.github.io/index.html">
-<meta property="og:site_name" content="是你的技术博客">
+<meta property="og:site_name" content="草原森林">
 <meta property="og:description" content="现在开始种树啦">
 <meta property="og:locale">
 <meta property="article:author" content="一棵树">
@@ -46,7 +46,7 @@
     lang   : 'zh-Hans'
   };
 </script>
-<title>是你的技术博客</title>
+<title>草原森林</title>
   
 
   <script>
@@ -116,9 +116,10 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">是你的技术博客</h1>
+      <h1 class="site-title">草原森林</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">一片两片三四片，五片六片七八片，鸡鸭鹅，牛羊猪</p>
   </div>
 
   <div class="site-nav-right">
@@ -266,7 +267,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="是你的技术博客">
+      <meta itemprop="name" content="草原森林">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -282,7 +283,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-02-26 11:17:38 / 修改时间：14:53:36" itemprop="dateCreated datePublished" datetime="2021-02-26T11:17:38+08:00">2021-02-26</time>
+      <time title="创建时间：2021-02-26 11:17:38 / 修改时间：15:18:25" itemprop="dateCreated datePublished" datetime="2021-02-26T11:17:38+08:00">2021-02-26</time>
     </span>
 
   
@@ -299,8 +300,13 @@
 <h3 id="设置语言"><a href="#设置语言" class="headerlink" title="设置语言"></a>设置语言</h3><p>在编辑 站点配置文件 时， 将 language 按照hexo 的官方文档设置语言,但不生效。</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span> <span class="string">//</span> <span class="string">这里设置语言</span> <span class="string">简体中文</span></span><br></pre></td></tr></table></figure>
 <p>查看hexo-theme-next/languages/目录下是否有zh-Hans.yml 文件.一般是有zh-CN.yml ,所以要把zh-CN.yml文件改成名字为zh-Hans.yml就可以了<br>————————————————</p>
-<h3 id="设置标题-作者-描述"><a href="#设置标题-作者-描述" class="headerlink" title="设置标题/作者/描述"></a>设置标题/作者/描述</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">是你的技术博客</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;现在开始种树啦&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">一棵树</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-<p>按照官方文档设置，但均不生效，不知道为什么</p>
+<h3 id="设置标题-作者-描述"><a href="#设置标题-作者-描述" class="headerlink" title="设置标题/作者/描述"></a>设置标题/作者/描述</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">草原森林</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;一片两片三四片，五片六片七八片，鸡鸭鹅，牛羊猪&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;现在开始种树啦&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">一棵树</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>按照官方文档设置，但均不生效，在命令行输入以下命令就解决了这个问题，因为是静态文件，所以可能是由于缓存的原因</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean //清理静态文件</span><br><span class="line">hexo g //生成静态文件</span><br><span class="line">hexo d //部署</span><br></pre></td></tr></table></figure>
+
+<p>###部署时报错<br>在命令行工具中输入hexo d进行部署时报以下错误</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">FATAL &#123;</span><br><span class="line">  err: <span class="built_in">Error</span>: Spawn failed</span><br><span class="line">      at ChildProcess.&lt;anonymous&gt; (D:\sblog\songssBlog\node_modules\hexo-util\lib\spawn.js:<span class="number">51</span>:<span class="number">21</span>)</span><br><span class="line">      at ChildProcess.emit (events.js:<span class="number">315</span>:<span class="number">20</span>)</span><br><span class="line">      at ChildProcess.cp.emit (D:\sblog\songssBlog\node_modules\cross-spawn\lib\enoent.js:<span class="number">34</span>:<span class="number">29</span>)</span><br><span class="line">      at Process.ChildProcess._handle.onexit (internal/child_process.js:<span class="number">277</span>:<span class="number">12</span>) &#123;</span><br><span class="line">    code: <span class="number">128</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>解决办法：部署时hexo clean一次</p>
 <h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
