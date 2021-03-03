@@ -1,218 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>comment</title>
-      <link href="2021/03/03/comment/"/>
-      <url>2021/03/03/comment/</url>
-      
-        <content type="html"><![CDATA[<p>评论来此集合，测试评论功能贴,要登录才能评论！！</p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>移动端布局及页面自适应布局（rem布局）</title>
+    <url>/2021/02/27/flexible/</url>
+    <content><![CDATA[<p>常见的页面布局方式有</p>
+<ul>
+<li>静态布局  px布局 即传统web布局，网页上所有元素尺寸一律用px作为单位</li>
+<li>流式布局（Liquid Layout） 主要的划分区域的尺寸使用百分数（搭配min-*、max-*属性使用）以京东移动端为代表</li>
+<li>自适应布局（Adaptive Layout） 即创建多个静态布局，每个静态布局对应一个屏幕分辨率范围</li>
+<li>响应式布局（Responsive Layout） 检测窗口大小利用bootstrap布局</li>
+<li>弹性布局（rem/em布局） css3 rem<span id="more"></span></li>
+</ul>
+<p>1.如果只做pc端，那么静态布局（定宽度）是最好的选择；</p>
+<p>2.如果做移动端，且设计对高度和元素间距要求不高，那么弹性布局（rem+js）是最好的选择，一份css+一份js调节font-size搞定；</p>
+<p>3.如果pc，移动要兼容，而且要求很高那么响应式布局还是最好的选择，前提是设计根据不同的高宽做不同的设计，响应式根据媒体查询做不同的布局。</p>
+<h4 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h4><p>rem (root em)是一个相对单位，是相对于html元素的字体大小（em是父元素字体大小）。比如，根元素（html）font-size=12px; 则1rem就是12px。</p>
+<h4 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a>viewport</h4><h4 id="media"><a href="#media" class="headerlink" title="@media"></a>@media</h4><h4 id="vh"><a href="#vh" class="headerlink" title="vh"></a>vh</h4><h4 id="dpr"><a href="#dpr" class="headerlink" title="dpr"></a>dpr</h4><h4 id="二倍图"><a href="#二倍图" class="headerlink" title="二倍图"></a>二倍图</h4><h4 id="移动端适配方案"><a href="#移动端适配方案" class="headerlink" title="移动端适配方案"></a>移动端适配方案</h4><h5 id="手机淘宝适配方案"><a href="#手机淘宝适配方案" class="headerlink" title="手机淘宝适配方案"></a>手机淘宝适配方案</h5>]]></content>
       <categories>
-          
-          <category> 测试 </category>
-          
-          <category> 评论功能 </category>
-          
+        <category>web前端</category>
+        <category>CSS</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 测试 </tag>
-            
-            <tag> 评论 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>vue移动端项目中两种方式实现页面自适应布局</title>
-      <link href="2021/02/27/media-rem/"/>
-      <url>2021/02/27/media-rem/</url>
-      
-        <content type="html"><![CDATA[<p>方案一：手机淘宝移动端适配方案，引入flexible.js文件<br>src =&gt; assets =&gt; flexible.js<br>css样式时应计算为相应rem 利用vsCode插件</p><span id="more"></span><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">flexible</span>(<span class="params"><span class="built_in">window</span>, <span class="built_in">document</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> docEl = <span class="built_in">document</span>.documentElement <span class="comment">//获取html标签</span></span><br><span class="line">  <span class="comment">// 获取当前设备的物理像素比</span></span><br><span class="line">  <span class="keyword">var</span> dpr = <span class="built_in">window</span>.devicePixelRatio || <span class="number">1</span></span><br><span class="line"><span class="built_in">console</span>.log(dpr)</span><br><span class="line">  <span class="comment">// adjust body font size</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">setBodyFontSize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.body) &#123;</span><br><span class="line">      <span class="built_in">document</span>.body.style.fontSize = (<span class="number">12</span> * dpr) + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">document</span>.addEventListener(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, setBodyFontSize)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  setBodyFontSize();</span><br><span class="line">  <span class="comment">// console.log(document.body.style.fontSize)</span></span><br><span class="line">  <span class="comment">// set 1rem = viewWidth / 10</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">setRemUnit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> rem = docEl.clientWidth / <span class="number">20</span></span><br><span class="line">    docEl.style.fontSize = rem + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="built_in">console</span>.log(docEl.clientWidth)</span><br><span class="line">  setRemUnit()</span><br><span class="line"></span><br><span class="line">  <span class="comment">// reset rem unit on page resize</span></span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">&#x27;resize&#x27;</span>, setRemUnit)</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">&#x27;pageshow&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (e.persisted) &#123;</span><br><span class="line">      setRemUnit()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// detect 0.5px supports</span></span><br><span class="line">  <span class="keyword">if</span> (dpr &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> fakeBody = <span class="built_in">document</span>.createElement(<span class="string">&#x27;body&#x27;</span>)</span><br><span class="line">    <span class="keyword">var</span> testElement = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">    testElement.style.border = <span class="string">&#x27;.5px solid transparent&#x27;</span></span><br><span class="line">    fakeBody.appendChild(testElement)</span><br><span class="line">    docEl.appendChild(fakeBody)</span><br><span class="line">    <span class="keyword">if</span> (testElement.offsetHeight === <span class="number">1</span>) &#123;</span><br><span class="line">      docEl.classList.add(<span class="string">&#x27;hairlines&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    docEl.removeChild(fakeBody)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;(<span class="built_in">window</span>, <span class="built_in">document</span>))</span><br></pre></td></tr></table></figure><p>方案二：自定义媒体查询,根据常见屏幕尺寸设置<br>src =&gt; styles =&gt; flexible.scss<br>在main.scss中引入,这种方案因为有同时引入初始化样式normalize.scss所有会不生效</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">&quot;./flexible.scss&quot;</span>;</span><br><span class="line">// <span class="keyword">@import</span> <span class="string">&quot;./normalize.scss&quot;</span>;  //页面初始化样式</span><br></pre></td></tr></table></figure><p>flexible.scss文件内容</p><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义的份数为15等份，每一份为html字体的大小，为1rem</span></span><br><span class="line"><span class="comment">//  屏幕尺寸不同定义不同的1rem就是不同的html字体大小</span></span><br><span class="line"><span class="comment">/* 这里面设置常见的屏幕尺寸，修改里面html文字大小 */</span></span><br><span class="line"><span class="comment">/* 不能无限制的大，所以设置一个固定的html字体50 */</span></span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">    <span class="comment">/* 写在最上面，因为样式有层叠性 */</span></span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 15等分不变，所以定义一个变量</span></span><br><span class="line"><span class="variable">$no</span>: <span class="number">15</span>;</span><br><span class="line"><span class="comment">//  屏幕为320px时 定义html字体大小为320/15</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">320px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">320px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 360</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">360px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">360px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  375 iphone678</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">370px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">375px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 384</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">384px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">384px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  400</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">400px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">400px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  414</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">414px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">414px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  424</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">424px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">424px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  480</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">480px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">480px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  540</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">540px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">540px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  720</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">720px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">720px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  750</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">750px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">750px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      
-      
+      <tags>
+        <tag>js</tag>
+        <tag>移动端</tag>
+        <tag>rem</tag>
+        <tag>flexible</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>函数的防抖与节流</title>
+    <url>/2020/10/02/debounce-throttle/</url>
+    <content><![CDATA[<p>节流与防抖都是控制事件触发频率的方法。应用场景有很多，输入框持续输入，将输入内容远程校验、多次触发点击事件、onScroll等等。</p>
+<ul>
+<li>输入框持续输入事件，用户输入内容，就从后台调接口返回相应的关键词数据，但不能输入一次就调一次后台接口，但不必然，百度搜索引擎就没有防抖</li>
+<li>多次触发点击事件，之前应用场景就是轮播图按钮的节流锁</li>
+<li>节流多用于防止多次触发点击事件，防抖多用于输入框持续输入<span id="more"></span>
+
+</li>
+</ul>
+<h3 id="防抖Debounce：-最后一个人说了算"><a href="#防抖Debounce：-最后一个人说了算" class="headerlink" title="防抖Debounce： 最后一个人说了算"></a>防抖Debounce： 最后一个人说了算</h3><h4 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h4><p>  防抖的中心思想在于：我会等你到底。在某段时间内，不管你触发了多少次回调，我都只认最后一次。</p>
+<p>对于短时间内连续触发的事件，防抖的含义就是让某个时间期限（如1000毫秒）内，事件处理函数只执行一次。</p>
+<hr>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>例如：回到顶部滚动事件判定scrollTop为0时隐藏，发生滚动时显示/这样的场景懒加载</p>
+<p>再者：输入款input的keyup输入事件，用户输入停止之后delay时间内才会执行回调</p>
+<h4 id="手写防抖函数"><a href="#手写防抖函数" class="headerlink" title="手写防抖函数"></a>手写防抖函数</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//定义一个防抖函数，如果持续触发（设定延迟时间内），则永远只执行最近一次</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> timer</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">clearTimeout</span>(timer) <span class="comment">// 如果持续触发，那么就清除定时器，定时器的回调就不会执行。</span></span><br><span class="line">            timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                func.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>)</span><br><span class="line">            &#125;, delay)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">showTop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> scrollTop = <span class="built_in">document</span>.body.scrollTop || <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;滚动条位置：&#x27;</span> + scrollTop);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">window</span>.onscroll = debounce(showTop, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="节流throttle：第一个人说了算"><a href="#节流throttle：第一个人说了算" class="headerlink" title="节流throttle：第一个人说了算"></a>节流throttle：第一个人说了算</h3><h4 id="含义-1"><a href="#含义-1" class="headerlink" title="含义"></a>含义</h4><p>   有些浏览器事件可以在短时间内快速触发多次，比如调整窗口大小或向下滚动页面。例如，监听页面窗口滚动事件，并且用户持续快速地向下滚动页面，那么滚动事件可能在 3 秒内触发数千次，这可能会导致一些严重的性能问题。</p>
+<h4 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h4><p>  构建应用程序，滚动、窗口大小调整或按下键等事件必然关系到 防抖(Debouncing) 和 函数节流（Throttling）来提升页面速度和性能。两者本质都是以闭包的形式存在。通过对事件对应的回调函数进行包裹、以自由变量的形式缓存时间信息，最后用 setTimeout 来控制事件的触发频率。</p>
+<ul>
+<li>throttle 的中心思想在于：在某段时间内，不管你触发了多少次回调，我都只认第一次，并在计时结束时给予响应。<br>节流的意思是让函数有节制地执行，而不是毫无节制的触发一次就执行一次。就是在一段时间内，只执行一次。</li>
+<li>持续触发并不会执行多次（防抖是触发会执行，但限定时间内上一次会被取消）</li>
+<li>到一定时间再去执行（防抖是持续触发只执行最近的一次，节流就是本质上指定时间内只触发一次）</li>
+<li>所以就需要设置一个开关来控制(之前做的轮播图的左右点击按钮做了一个这个节流锁，就是这个应用场景)<h4 id="定义节流函数"><a href="#定义节流函数" class="headerlink" title="定义节流函数"></a>定义节流函数</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> run = <span class="literal">true</span></span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!run) &#123;</span><br><span class="line">          <span class="keyword">return</span>  <span class="comment">// 如果开关关闭了，那就直接不执行下边的代码</span></span><br><span class="line">        &#125;</span><br><span class="line">        run = <span class="literal">false</span> <span class="comment">// 持续触发的话，run一直是false，就会停在上边的判断那里</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          func.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>)</span><br><span class="line">          run = <span class="literal">true</span> <span class="comment">// 定时器到时间之后，会把开关打开，我们的函数就会被执行</span></span><br><span class="line">        &#125;, delay)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="built_in">window</span>.onscroll = debounce(showTop, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+<!-- 方式2 -->
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> timer;</span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(timer) <span class="keyword">return</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          func.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>)</span><br><span class="line">          timer = <span class="literal">null</span></span><br><span class="line">        &#125;, delay)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
       <categories>
-          
-          <category> web前端 </category>
-          
-          <category> CSS </category>
-          
-          <category> 移动端 </category>
-          
+        <category>web前端</category>
+        <category>JS</category>
+        <category>面试</category>
+        <category>初级</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 移动端 </tag>
-            
-            <tag> rem </tag>
-            
-            <tag> flexible </tag>
-            
-            <tag> vue </tag>
-            
-            <tag> CSS </tag>
-            
-            <tag> 布局 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>vue-cli快速构建项目</title>
-      <link href="2021/02/27/program/"/>
-      <url>2021/02/27/program/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>comment</title>
+    <url>/2021/03/03/comment/</url>
+    <content><![CDATA[<p>评论来此集合，测试评论功能贴,要登录才能评论！！</p>
+]]></content>
       <categories>
-          
-          <category> web前端 </category>
-          
-          <category> Vue </category>
-          
+        <category>测试</category>
+        <category>评论功能</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 移动端 </tag>
-            
-            <tag> vue </tag>
-            
-            <tag> vue-cli </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>移动端布局及页面自适应布局（rem布局）</title>
-      <link href="2021/02/27/flexible/"/>
-      <url>2021/02/27/flexible/</url>
-      
-        <content type="html"><![CDATA[<p>常见的页面布局方式有</p><ul><li>静态布局  px布局 即传统web布局，网页上所有元素尺寸一律用px作为单位</li><li>流式布局（Liquid Layout） 主要的划分区域的尺寸使用百分数（搭配min-*、max-*属性使用）以京东移动端为代表</li><li>自适应布局（Adaptive Layout） 即创建多个静态布局，每个静态布局对应一个屏幕分辨率范围</li><li>响应式布局（Responsive Layout） 检测窗口大小利用bootstrap布局</li><li>弹性布局（rem/em布局） css3 rem<span id="more"></span></li></ul><p>1.如果只做pc端，那么静态布局（定宽度）是最好的选择；</p><p>2.如果做移动端，且设计对高度和元素间距要求不高，那么弹性布局（rem+js）是最好的选择，一份css+一份js调节font-size搞定；</p><p>3.如果pc，移动要兼容，而且要求很高那么响应式布局还是最好的选择，前提是设计根据不同的高宽做不同的设计，响应式根据媒体查询做不同的布局。</p><h4 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h4><p>rem (root em)是一个相对单位，是相对于html元素的字体大小（em是父元素字体大小）。比如，根元素（html）font-size=12px; 则1rem就是12px。</p><h4 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a>viewport</h4><h4 id="media"><a href="#media" class="headerlink" title="@media"></a>@media</h4><h4 id="vh"><a href="#vh" class="headerlink" title="vh"></a>vh</h4><h4 id="dpr"><a href="#dpr" class="headerlink" title="dpr"></a>dpr</h4><h4 id="二倍图"><a href="#二倍图" class="headerlink" title="二倍图"></a>二倍图</h4><h4 id="移动端适配方案"><a href="#移动端适配方案" class="headerlink" title="移动端适配方案"></a>移动端适配方案</h4><h5 id="手机淘宝适配方案"><a href="#手机淘宝适配方案" class="headerlink" title="手机淘宝适配方案"></a>手机淘宝适配方案</h5>]]></content>
-      
-      
+      <tags>
+        <tag>测试</tag>
+        <tag>评论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue-cli快速构建项目</title>
+    <url>/2021/02/27/program/</url>
+    <content><![CDATA[]]></content>
       <categories>
-          
-          <category> web前端 </category>
-          
-          <category> CSS </category>
-          
+        <category>web前端</category>
+        <category>Vue</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> js </tag>
-            
-            <tag> 移动端 </tag>
-            
-            <tag> rem </tag>
-            
-            <tag> flexible </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>随便写点什么</title>
-      <link href="2021/02/26/%E9%9A%8F%E4%BE%BF%E5%86%99%E7%82%B9%E4%BB%80%E4%B9%88/"/>
-      <url>2021/02/26/%E9%9A%8F%E4%BE%BF%E5%86%99%E7%82%B9%E4%BB%80%E4%B9%88/</url>
-      
-        <content type="html"><![CDATA[<p>还差评论功能</p><span id="more"></span>]]></content>
-      
-      
+      <tags>
+        <tag>移动端</tag>
+        <tag>vue</tag>
+        <tag>vue-cli</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo next搭建博客遇到的问题</title>
+    <url>/2019/12/26/hello-world/</url>
+    <content><![CDATA[<hr>
+<p>最近开始基于hexo和next搭建个人博客，中途遇到了一堆的bug以及相关的优化问题，想写这篇文章记录下。</p>
+<h3 id="设置语言"><a href="#设置语言" class="headerlink" title="设置语言"></a>设置语言</h3><p>在编辑 站点配置文件 时， 将 language 按照hexo 的官方文档设置语言,但不生效。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span> <span class="string">//</span> <span class="string">这里设置语言</span> <span class="string">简体中文</span></span><br></pre></td></tr></table></figure>
+<p>查看hexo-theme-next/languages/目录下是否有zh-Hans.yml 文件.一般是有zh-CN.yml ,所以要把zh-CN.yml文件改成名字为zh-Hans.yml就可以了<br>————————————————</p>
+<span id="more"></span>
+<h3 id="设置标题-作者-描述"><a href="#设置标题-作者-描述" class="headerlink" title="设置标题/作者/描述"></a>设置标题/作者/描述</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">草原森林</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;一片两片三四片，五片六片七八片，鸡鸭鹅，牛羊猪&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;现在开始种树啦&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">一棵树</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>按照官方文档设置，但均不生效，在命令行输入以下命令就解决了这个问题，因为是静态文件，所以可能是由于缓存的原因</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean //清理静态文件</span><br><span class="line">hexo g //生成静态文件</span><br><span class="line">hexo d //部署</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署时报错"><a href="#部署时报错" class="headerlink" title="部署时报错"></a>部署时报错</h3><p>在命令行工具中输入hexo d进行部署时报以下错误</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">FATAL &#123;</span><br><span class="line">  err: <span class="built_in">Error</span>: Spawn failed</span><br><span class="line">      at ChildProcess.&lt;anonymous&gt; (D:\sblog\songssBlog\node_modules\hexo-util\lib\spawn.js:<span class="number">51</span>:<span class="number">21</span>)</span><br><span class="line">      at ChildProcess.emit (events.js:<span class="number">315</span>:<span class="number">20</span>)</span><br><span class="line">      at ChildProcess.cp.emit (D:\sblog\songssBlog\node_modules\cross-spawn\lib\enoent.js:<span class="number">34</span>:<span class="number">29</span>)</span><br><span class="line">      at Process.ChildProcess._handle.onexit (internal/child_process.js:<span class="number">277</span>:<span class="number">12</span>) &#123;</span><br><span class="line">    code: <span class="number">128</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>解决办法：部署时hexo clean一次</p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="发布新文章"><a href="#发布新文章" class="headerlink" title="发布新文章"></a>发布新文章</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h4 id="清除缓存"><a href="#清除缓存" class="headerlink" title="清除缓存"></a>清除缓存</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+<h4 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h4 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate  或者 hexo s 常用参数：-p（--port）重设端口</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h4 id="部署到服务器"><a href="#部署到服务器" class="headerlink" title="部署到服务器"></a>部署到服务器</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy 可简写为hexo d，用于将网站部署到服务器上。</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h4 id="发布文章之后的操作"><a href="#发布文章之后的操作" class="headerlink" title="发布文章之后的操作"></a>发布文章之后的操作</h4><p>一般发布文章或者修改博客后需要这些操作：清除缓存&gt;生成静态文件&gt;启动服务器，测试没问题后再部署。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-          
-          <category> 日常 </category>
-          
+        <category>blog搭建</category>
       </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>函数的防抖与节流</title>
-      <link href="2020/10/02/debounce-throttle/"/>
-      <url>2020/10/02/debounce-throttle/</url>
-      
-        <content type="html"><![CDATA[<p>节流与防抖都是控制事件触发频率的方法。应用场景有很多，输入框持续输入，将输入内容远程校验、多次触发点击事件、onScroll等等。</p><ul><li>输入框持续输入事件，用户输入内容，就从后台调接口返回相应的关键词数据，但不能输入一次就调一次后台接口，但不必然，百度搜索引擎就没有防抖</li><li>多次触发点击事件，之前应用场景就是轮播图按钮的节流锁</li><li>节流多用于防止多次触发点击事件，防抖多用于输入框持续输入<span id="more"></span></li></ul><h3 id="防抖Debounce：-最后一个人说了算"><a href="#防抖Debounce：-最后一个人说了算" class="headerlink" title="防抖Debounce： 最后一个人说了算"></a>防抖Debounce： 最后一个人说了算</h3><h4 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h4><p>  防抖的中心思想在于：我会等你到底。在某段时间内，不管你触发了多少次回调，我都只认最后一次。</p><p>对于短时间内连续触发的事件，防抖的含义就是让某个时间期限（如1000毫秒）内，事件处理函数只执行一次。</p><hr><h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>例如：回到顶部滚动事件判定scrollTop为0时隐藏，发生滚动时显示/这样的场景懒加载</p><p>再者：输入款input的keyup输入事件，用户输入停止之后delay时间内才会执行回调</p><h4 id="手写防抖函数"><a href="#手写防抖函数" class="headerlink" title="手写防抖函数"></a>手写防抖函数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个防抖函数，如果持续触发（设定延迟时间内），则永远只执行最近一次</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> timer</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">clearTimeout</span>(timer) <span class="comment">// 如果持续触发，那么就清除定时器，定时器的回调就不会执行。</span></span><br><span class="line">            timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                func.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>)</span><br><span class="line">            &#125;, delay)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">showTop</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> scrollTop = <span class="built_in">document</span>.body.scrollTop || <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;滚动条位置：&#x27;</span> + scrollTop);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">window</span>.onscroll = debounce(showTop, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure><h3 id="节流throttle：第一个人说了算"><a href="#节流throttle：第一个人说了算" class="headerlink" title="节流throttle：第一个人说了算"></a>节流throttle：第一个人说了算</h3><h4 id="含义-1"><a href="#含义-1" class="headerlink" title="含义"></a>含义</h4><p>   有些浏览器事件可以在短时间内快速触发多次，比如调整窗口大小或向下滚动页面。例如，监听页面窗口滚动事件，并且用户持续快速地向下滚动页面，那么滚动事件可能在 3 秒内触发数千次，这可能会导致一些严重的性能问题。</p><h4 id="应用场景-1"><a href="#应用场景-1" class="headerlink" title="应用场景"></a>应用场景</h4><p>  构建应用程序，滚动、窗口大小调整或按下键等事件必然关系到 防抖(Debouncing) 和 函数节流（Throttling）来提升页面速度和性能。两者本质都是以闭包的形式存在。通过对事件对应的回调函数进行包裹、以自由变量的形式缓存时间信息，最后用 setTimeout 来控制事件的触发频率。</p><ul><li>throttle 的中心思想在于：在某段时间内，不管你触发了多少次回调，我都只认第一次，并在计时结束时给予响应。<br>节流的意思是让函数有节制地执行，而不是毫无节制的触发一次就执行一次。就是在一段时间内，只执行一次。</li><li>持续触发并不会执行多次（防抖是触发会执行，但限定时间内上一次会被取消）</li><li>到一定时间再去执行（防抖是持续触发只执行最近的一次，节流就是本质上指定时间内只触发一次）</li><li>所以就需要设置一个开关来控制(之前做的轮播图的左右点击按钮做了一个这个节流锁，就是这个应用场景)<h4 id="定义节流函数"><a href="#定义节流函数" class="headerlink" title="定义节流函数"></a>定义节流函数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> run = <span class="literal">true</span></span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!run) &#123;</span><br><span class="line">          <span class="keyword">return</span>  <span class="comment">// 如果开关关闭了，那就直接不执行下边的代码</span></span><br><span class="line">        &#125;</span><br><span class="line">        run = <span class="literal">false</span> <span class="comment">// 持续触发的话，run一直是false，就会停在上边的判断那里</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          func.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>)</span><br><span class="line">          run = <span class="literal">true</span> <span class="comment">// 定时器到时间之后，会把开关打开，我们的函数就会被执行</span></span><br><span class="line">        &#125;, delay)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="built_in">window</span>.onscroll = debounce(showTop, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure><!-- 方式2 --><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, delay</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> timer;</span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(timer) <span class="keyword">return</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          func.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>)</span><br><span class="line">          timer = <span class="literal">null</span></span><br><span class="line">        &#125;, delay)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li></ul>]]></content>
-      
-      
+      <tags>
+        <tag>blog</tag>
+        <tag>hexo</tag>
+        <tag>next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue移动端项目中两种方式实现页面自适应布局</title>
+    <url>/2021/02/27/media-rem/</url>
+    <content><![CDATA[<p>方案一：手机淘宝移动端适配方案，引入flexible.js文件<br>src =&gt; assets =&gt; flexible.js<br>css样式时应计算为相应rem 利用vsCode插件</p>
+<span id="more"></span>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">flexible</span>(<span class="params"><span class="built_in">window</span>, <span class="built_in">document</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> docEl = <span class="built_in">document</span>.documentElement <span class="comment">//获取html标签</span></span><br><span class="line">  <span class="comment">// 获取当前设备的物理像素比</span></span><br><span class="line">  <span class="keyword">var</span> dpr = <span class="built_in">window</span>.devicePixelRatio || <span class="number">1</span></span><br><span class="line"><span class="built_in">console</span>.log(dpr)</span><br><span class="line">  <span class="comment">// adjust body font size</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">setBodyFontSize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.body) &#123;</span><br><span class="line">      <span class="built_in">document</span>.body.style.fontSize = (<span class="number">12</span> * dpr) + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">document</span>.addEventListener(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, setBodyFontSize)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  setBodyFontSize();</span><br><span class="line">  <span class="comment">// console.log(document.body.style.fontSize)</span></span><br><span class="line">  <span class="comment">// set 1rem = viewWidth / 10</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">setRemUnit</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> rem = docEl.clientWidth / <span class="number">20</span></span><br><span class="line">    docEl.style.fontSize = rem + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="built_in">console</span>.log(docEl.clientWidth)</span><br><span class="line">  setRemUnit()</span><br><span class="line"></span><br><span class="line">  <span class="comment">// reset rem unit on page resize</span></span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">&#x27;resize&#x27;</span>, setRemUnit)</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">&#x27;pageshow&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (e.persisted) &#123;</span><br><span class="line">      setRemUnit()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// detect 0.5px supports</span></span><br><span class="line">  <span class="keyword">if</span> (dpr &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> fakeBody = <span class="built_in">document</span>.createElement(<span class="string">&#x27;body&#x27;</span>)</span><br><span class="line">    <span class="keyword">var</span> testElement = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">    testElement.style.border = <span class="string">&#x27;.5px solid transparent&#x27;</span></span><br><span class="line">    fakeBody.appendChild(testElement)</span><br><span class="line">    docEl.appendChild(fakeBody)</span><br><span class="line">    <span class="keyword">if</span> (testElement.offsetHeight === <span class="number">1</span>) &#123;</span><br><span class="line">      docEl.classList.add(<span class="string">&#x27;hairlines&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    docEl.removeChild(fakeBody)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;(<span class="built_in">window</span>, <span class="built_in">document</span>))</span><br></pre></td></tr></table></figure>
+<p>方案二：自定义媒体查询,根据常见屏幕尺寸设置<br>src =&gt; styles =&gt; flexible.scss<br>在main.scss中引入,这种方案因为有同时引入初始化样式normalize.scss所有会不生效</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">&quot;./flexible.scss&quot;</span>;</span><br><span class="line">// <span class="keyword">@import</span> <span class="string">&quot;./normalize.scss&quot;</span>;  //页面初始化样式</span><br></pre></td></tr></table></figure>
+<p>flexible.scss文件内容</p>
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义的份数为15等份，每一份为html字体的大小，为1rem</span></span><br><span class="line"><span class="comment">//  屏幕尺寸不同定义不同的1rem就是不同的html字体大小</span></span><br><span class="line"><span class="comment">/* 这里面设置常见的屏幕尺寸，修改里面html文字大小 */</span></span><br><span class="line"><span class="comment">/* 不能无限制的大，所以设置一个固定的html字体50 */</span></span><br><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">    <span class="comment">/* 写在最上面，因为样式有层叠性 */</span></span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 15等分不变，所以定义一个变量</span></span><br><span class="line"><span class="variable">$no</span>: <span class="number">15</span>;</span><br><span class="line"><span class="comment">//  屏幕为320px时 定义html字体大小为320/15</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">320px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">320px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 360</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">360px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">360px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  375 iphone678</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">370px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">375px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 384</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">384px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">384px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  400</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">400px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">400px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  414</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">414px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">414px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  424</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">424px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">424px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  480</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">480px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">480px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  540</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">540px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">540px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  720</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">720px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">720px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  750</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width</span>: <span class="number">750px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">750px</span> / <span class="variable">$no</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
-          
-          <category> web前端 </category>
-          
-          <category> JS </category>
-          
-          <category> 面试 </category>
-          
-          <category> 初级 </category>
-          
+        <category>web前端</category>
+        <category>CSS</category>
+        <category>移动端</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> js </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>hexo next搭建博客遇到的问题</title>
-      <link href="2019/12/26/hello-world/"/>
-      <url>2019/12/26/hello-world/</url>
-      
-        <content type="html"><![CDATA[<hr><p>最近开始基于hexo和next搭建个人博客，中途遇到了一堆的bug以及相关的优化问题，想写这篇文章记录下。</p><h3 id="设置语言"><a href="#设置语言" class="headerlink" title="设置语言"></a>设置语言</h3><p>在编辑 站点配置文件 时， 将 language 按照hexo 的官方文档设置语言,但不生效。</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span> <span class="string">//</span> <span class="string">这里设置语言</span> <span class="string">简体中文</span></span><br></pre></td></tr></table></figure><p>查看hexo-theme-next/languages/目录下是否有zh-Hans.yml 文件.一般是有zh-CN.yml ,所以要把zh-CN.yml文件改成名字为zh-Hans.yml就可以了<br>————————————————</p><span id="more"></span><h3 id="设置标题-作者-描述"><a href="#设置标题-作者-描述" class="headerlink" title="设置标题/作者/描述"></a>设置标题/作者/描述</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">草原森林</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;一片两片三四片，五片六片七八片，鸡鸭鹅，牛羊猪&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">&#x27;现在开始种树啦&#x27;</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">一棵树</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure><p>按照官方文档设置，但均不生效，在命令行输入以下命令就解决了这个问题，因为是静态文件，所以可能是由于缓存的原因</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean //清理静态文件</span><br><span class="line">hexo g //生成静态文件</span><br><span class="line">hexo d //部署</span><br></pre></td></tr></table></figure><h3 id="部署时报错"><a href="#部署时报错" class="headerlink" title="部署时报错"></a>部署时报错</h3><p>在命令行工具中输入hexo d进行部署时报以下错误</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">FATAL &#123;</span><br><span class="line">  err: <span class="built_in">Error</span>: Spawn failed</span><br><span class="line">      at ChildProcess.&lt;anonymous&gt; (D:\sblog\songssBlog\node_modules\hexo-util\lib\spawn.js:<span class="number">51</span>:<span class="number">21</span>)</span><br><span class="line">      at ChildProcess.emit (events.js:<span class="number">315</span>:<span class="number">20</span>)</span><br><span class="line">      at ChildProcess.cp.emit (D:\sblog\songssBlog\node_modules\cross-spawn\lib\enoent.js:<span class="number">34</span>:<span class="number">29</span>)</span><br><span class="line">      at Process.ChildProcess._handle.onexit (internal/child_process.js:<span class="number">277</span>:<span class="number">12</span>) &#123;</span><br><span class="line">    code: <span class="number">128</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure><p>解决办法：部署时hexo clean一次</p><h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="发布新文章"><a href="#发布新文章" class="headerlink" title="发布新文章"></a>发布新文章</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h4 id="清除缓存"><a href="#清除缓存" class="headerlink" title="清除缓存"></a>清除缓存</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure><h4 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h4 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate  或者 hexo s 常用参数：-p（--port）重设端口</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h4 id="部署到服务器"><a href="#部署到服务器" class="headerlink" title="部署到服务器"></a>部署到服务器</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy 可简写为hexo d，用于将网站部署到服务器上。</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p><h4 id="发布文章之后的操作"><a href="#发布文章之后的操作" class="headerlink" title="发布文章之后的操作"></a>发布文章之后的操作</h4><p>一般发布文章或者修改博客后需要这些操作：清除缓存&gt;生成静态文件&gt;启动服务器，测试没问题后再部署。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
+      <tags>
+        <tag>移动端</tag>
+        <tag>rem</tag>
+        <tag>flexible</tag>
+        <tag>vue</tag>
+        <tag>CSS</tag>
+        <tag>布局</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>随便写点什么</title>
+    <url>/2021/02/26/%E9%9A%8F%E4%BE%BF%E5%86%99%E7%82%B9%E4%BB%80%E4%B9%88/</url>
+    <content><![CDATA[<p>还差评论功能</p>
+<span id="more"></span>
+]]></content>
       <categories>
-          
-          <category> blog搭建 </category>
-          
+        <category>日常</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> blog </tag>
-            
-            <tag> hexo </tag>
-            
-            <tag> next </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+  </entry>
 </search>
