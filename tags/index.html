@@ -301,6 +301,7 @@
     
 
 
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81Mjg1OS8yOTMzNw=="></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -466,6 +467,22 @@
 </script>
 
 
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "tags/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
 
 </body>
 </html>
