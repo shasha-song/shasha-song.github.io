@@ -54,6 +54,36 @@
       </tags>
   </entry>
   <entry>
+    <title>项目过程中遇到的报错问题解决</title>
+    <url>/2021/03/06/error/</url>
+    <content><![CDATA[<h5 id="“TypeError-Cannot-read-property-‘name’-of-undefined”"><a href="#“TypeError-Cannot-read-property-‘name’-of-undefined”" class="headerlink" title="“TypeError: Cannot read property ‘name’ of undefined”"></a>“TypeError: Cannot read property ‘name’ of undefined”</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;film-detail&quot;&gt;</span><br><span class="line">    &lt;!--  --&gt;</span><br><span class="line">    &#123;&#123;filmInfo.name&#125;&#125; &#123;&#123;filmInfo.filmType.name&#125;&#125;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; loadFilmInfo &#125; from &quot;@&#x2F;api&#x2F;filmInfo&quot;; &#x2F;&#x2F;axios</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      filmInfo: [],</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    this.loadFilm();</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    loadFilm() &#123; &#x2F;&#x2F;axios是异步请求</span><br><span class="line">      loadFilmInfo(&#123; filmId: this.$route.params.filmId &#125;).then((res) &#x3D;&gt; &#123;</span><br><span class="line">        this.filmInfo &#x3D; res.data.data.film;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>页面报错</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">vue.js?ba4c:<span class="number">634</span> [Vue warn]: <span class="built_in">Error</span> <span class="keyword">in</span> render: <span class="string">&quot;TypeError: Cannot read property &#x27;name&#x27; of undefined&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>原因</strong></p>
+<blockquote>
+<p>这是因为页面加载完成之后会访问一次 ,而axios是异步的，第一次页面访问时，数据还没有请求过来，初始的this.filmInfo是一个空数组，访问空数组第一层属性filmInfo.name不会报错，会返回undefined，访问第二层filmInfo.filmType.name则会报错，因为是相当于访问undefined的name属性,同样的如果初始this.filmInfo设置为null，则访问第一层属性filmInfo.name就会报错，因为相当于访问一个null的属性， 数据请求完成之后页面是会正常显示，但始终会有报错</p>
+</blockquote>
+<p><strong>解决办法</strong></p>
+<blockquote>
+<p>初始this.filmInfo设置为null,页面标签设置v-if为filmInfo有值时才显示即可</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;film-detail&quot; v-if&#x3D;&quot;filmInfo&quot;&gt;</span><br><span class="line">    &lt;!--  --&gt;</span><br><span class="line">    &#123;&#123;filmInfo.name&#125;&#125; &#123;&#123;filmInfo.filmType.name&#125;&#125;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; loadFilmInfo &#125; from &quot;@&#x2F;api&#x2F;filmInfo&quot;; &#x2F;&#x2F;axios</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      filmInfo: null,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#x2F;&#x2F;.......</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>web前端</category>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>移动端</tag>
+        <tag>vue</tag>
+        <tag>报错</tag>
+        <tag>axios</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>移动端布局及页面自适应布局（rem布局）</title>
     <url>/2021/02/27/flexible/</url>
     <content><![CDATA[<p>常见的页面布局方式有</p>
@@ -78,6 +108,20 @@
         <tag>移动端</tag>
         <tag>rem</tag>
         <tag>flexible</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue-cli快速构建项目</title>
+    <url>/2021/02/27/program/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>web前端</category>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>移动端</tag>
+        <tag>vue</tag>
+        <tag>vue-cli</tag>
       </tags>
   </entry>
   <entry>
@@ -137,25 +181,11 @@
       </categories>
       <tags>
         <tag>移动端</tag>
+        <tag>vue</tag>
         <tag>rem</tag>
         <tag>flexible</tag>
         <tag>CSS</tag>
         <tag>布局</tag>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vue-cli快速构建项目</title>
-    <url>/2021/02/27/program/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>web前端</category>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>移动端</tag>
-        <tag>vue</tag>
-        <tag>vue-cli</tag>
       </tags>
   </entry>
   <entry>
