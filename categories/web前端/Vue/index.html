@@ -26,7 +26,7 @@
 <meta name="description" content="现在开始种树啦，树上住着我这只前端小菜鸟">
 <meta property="og:type" content="website">
 <meta property="og:title" content="SSSの博客">
-<meta property="og:url" content="https://shasha-song.github.io/categories/web%E5%89%8D%E7%AB%AF/vue/index.html">
+<meta property="og:url" content="https://shasha-song.github.io/categories/web%E5%89%8D%E7%AB%AF/Vue/index.html">
 <meta property="og:site_name" content="SSSの博客">
 <meta property="og:description" content="现在开始种树啦，树上住着我这只前端小菜鸟">
 <meta property="og:locale">
@@ -34,7 +34,7 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://shasha-song.github.io/categories/web%E5%89%8D%E7%AB%AF/vue/">
+<link rel="canonical" href="https://shasha-song.github.io/categories/web%E5%89%8D%E7%AB%AF/Vue/">
 
 
 <script class="page-configurations">
@@ -46,7 +46,7 @@
     lang   : 'zh-Hans'
   };
 </script>
-<title>分类: vue | SSSの博客</title>
+<title>分类: Vue | SSSの博客</title>
   
 
   <script>
@@ -209,7 +209,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -222,7 +222,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -267,35 +267,12 @@
   <div class="post-block">
     <div class="post-content">
       <div class="collection-title">
-        <h2 class="collection-header">vue
+        <h2 class="collection-header">Vue
           <small>分类</small>
         </h2>
       </div>
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-03-06T08:48:41+08:00"
-              content="2021-03-06">
-          03-06
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/03/06/router/" itemprop="url">
-            <span itemprop="name">vue中路由参数传递的几种方式</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
     <div class="collection-year">
       <span class="collection-header">2020</span>
     </div>
@@ -304,15 +281,15 @@
     <header class="post-header">
       <div class="post-meta-container">
         <time itemprop="dateCreated"
-              datetime="2020-03-06T11:06:15+08:00"
-              content="2020-03-06">
-          03-06
+              datetime="2020-02-27T19:42:43+08:00"
+              content="2020-02-27">
+          02-27
         </time>
       </div>
 
       <div class="post-title">
-          <a class="post-title-link" href="/2020/03/06/error/" itemprop="url">
-            <span itemprop="name">项目过程中遇到的报错问题解决</span>
+          <a class="post-title-link" href="/2020/02/27/program/" itemprop="url">
+            <span itemprop="name">vue-cli快速构建项目</span>
           </a>
       </div>
 
@@ -368,13 +345,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">10k</span>
+    <span title="站点总字数">21k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">10 分钟</span>
+    <span title="站点阅读时长">19 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
@@ -452,6 +429,50 @@
         })
         .catch(error => {
           console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"Uj1JM9X7G8PTG5CETJGy710i-9Nh9j0Va","app_key":"djBQuONjOv9B6RAOWDQmgfsQ","server_url":null,"security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+
+</body>
+</html>
+error);
         });
     }
 

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shasha-song.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="租车项目，遇到的bug，以及解决办法，记录一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目过程中遇到的报错问题解决">
+<meta property="og:url" content="https://shasha-song.github.io/2021/01/06/%E7%A7%9F%E8%BD%A6%E9%A1%B9%E7%9B%AE-bug/index.html">
+<meta property="og:site_name" content="SSSの博客">
+<meta property="og:description" content="租车项目，遇到的bug，以及解决办法，记录一下">
+<meta property="og:locale">
+<meta property="og:image" content="c:/Users/11449/AppData/Roaming/Typora/typora-user-images/image-20210207154320166.png">
+<meta property="article:published_time" content="2021-01-06T03:06:15.000Z">
+<meta property="article:modified_time" content="2021-02-22T04:17:15.000Z">
+<meta property="article:author" content="一只鸟">
+<meta property="article:tag" content="js">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="报错">
+<meta property="article:tag" content="axios">
+<meta property="article:tag" content="项目">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/11449/AppData/Roaming/Typora/typora-user-images/image-20210207154320166.png">
+
+
+<link rel="canonical" href="https://shasha-song.github.io/2021/01/06/%E7%A7%9F%E8%BD%A6%E9%A1%B9%E7%9B%AE-bug/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<title>项目过程中遇到的报错问题解决 | SSSの博客</title>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0bcc203b36fb6de4e18808e9e4841ec7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">SSSの博客</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一片两片三四片，五片六片七八片，鸡鸭鹅，牛羊猪</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%9F%E8%BD%A6%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">租车项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bug2-swiper%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">bug2:swiper插件使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug3%EF%BC%9A%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E5%BC%B9%E7%AA%97"><span class="nav-number">1.2.</span> <span class="nav-text">bug3：用户信息弹窗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug4-%E7%94%A8%E6%88%B7%E9%A1%B5%E9%9D%A2%E6%B6%88%E5%A4%B1"><span class="nav-number">1.3.</span> <span class="nav-text">bug4 用户页面消失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug5-git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">bug5 git版本管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug6-v-show%E9%9A%90%E8%97%8F%E9%87%8D%E5%A4%8D%E5%AF%86%E7%A0%81%E9%AA%8C%E8%AF%81"><span class="nav-number">1.5.</span> <span class="nav-text">bug6 v-show隐藏重复密码验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug7"><span class="nav-number">1.6.</span> <span class="nav-text">bug7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug8-%E9%AA%8C%E8%AF%81%E7%A0%81%E8%BE%93%E5%85%A5%E6%A1%86%E6%97%A0%E6%B3%95%E8%BE%93%E5%85%A5"><span class="nav-number">1.7.</span> <span class="nav-text">bug8 验证码输入框无法输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug9-%E5%85%B3%E4%BA%8E%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87%E4%B8%8E%E6%96%87%E5%AD%97%E5%AF%B9%E9%BD%90"><span class="nav-number">1.8.</span> <span class="nav-text">bug9 关于字体图标与文字对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug10"><span class="nav-number">1.9.</span> <span class="nav-text">bug10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug11-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.10.</span> <span class="nav-text">bug11 数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug12%EF%BC%9Aiconfont-svg%E5%9B%BE%E6%A0%87%E5%BC%95%E7%94%A8%E5%90%8E%E4%B8%8D%E8%83%BD%E7%94%A8fill%E6%9B%B4%E6%94%B9%E9%A2%9C%E8%89%B2"><span class="nav-number">1.11.</span> <span class="nav-text">bug12：iconfont svg图标引用后不能用fill更改颜色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug13-v-if%E8%A6%81%E5%9C%A8%E5%A4%96%E5%B1%82%E5%AE%B9%E5%99%A8%E4%B8%8A"><span class="nav-number">1.12.</span> <span class="nav-text">bug13 v-if要在外层容器上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug15%EF%BC%8C%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E5%A4%9A%E5%B1%82%E6%AC%A1"><span class="nav-number">1.13.</span> <span class="nav-text">bug15，返回数据多层次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug16-%E5%88%86%E9%A1%B5%E6%8C%89%E9%92%AE%E7%82%B9%E5%87%BB%E6%97%B6%E5%80%99%E4%B8%8A%E4%B8%80%E4%B8%AA%E5%A4%9A%E9%80%89%E6%A1%86%E9%80%89%E4%B8%AD%E7%9A%84%E4%BC%9A%E8%A2%AB%E6%B8%85%E9%99%A4"><span class="nav-number">1.14.</span> <span class="nav-text">bug16:分页按钮点击时候上一个多选框选中的会被清除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug17-%E7%BC%96%E8%BE%91%E6%8C%89%E9%92%AE%E6%97%A0%E6%B3%95%E5%BC%B9%E7%AA%97%E5%87%BA%E6%9D%A5%EF%BC%8C%E6%9C%80%E5%90%8E%E5%86%99%E5%9C%A8%E4%B8%80%E8%B5%B7%E5%8F%98%E6%88%90%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%89%8D%E5%87%BA%E7%8E%B0%E4%BA%86"><span class="nav-number">1.15.</span> <span class="nav-text">bug17 编辑按钮无法弹窗出来，最后写在一起变成函数调用才出现了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cannot-read-property-%E2%80%98length%E2%80%99-of-undefined-%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="nav-number">1.16.</span> <span class="nav-text">Cannot read property ‘length’ of undefined 问题解决思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug19-%E4%BD%BF%E7%94%A8elementUI%E4%B8%AD%E7%9A%84el-checkbox"><span class="nav-number">1.17.</span> <span class="nav-text">bug19 使用elementUI中的el-checkbox</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="一只鸟"
+      src="/uploads/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">一只鸟</p>
+  <div class="site-description" itemprop="description">现在开始种树啦，树上住着我这只前端小菜鸟</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shasha-song" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shasha-song" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1144983277@qq.com" title="E-Mail → mailto:1144983277@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://shasha-song.github.io/2021/01/06/%E7%A7%9F%E8%BD%A6%E9%A1%B9%E7%9B%AE-bug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+      <meta itemprop="name" content="一只鸟">
+      <meta itemprop="description" content="现在开始种树啦，树上住着我这只前端小菜鸟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SSSの博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          项目过程中遇到的报错问题解决
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-06 11:06:15" itemprop="dateCreated datePublished" datetime="2021-01-06T11:06:15+08:00">2021-01-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-02-22 12:17:15" itemprop="dateModified" datetime="2021-02-22T12:17:15+08:00">2021-02-22</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">web前端</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web%E5%89%8D%E7%AB%AF/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/01/06/%E7%A7%9F%E8%BD%A6%E9%A1%B9%E7%9B%AE-bug/" class="post-meta-item leancloud_visitors" data-flag-title="项目过程中遇到的报错问题解决" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>租车项目，遇到的bug，以及解决办法，记录一下</p>
+<span id="more"></span>
+<h2 id="租车项目"><a href="#租车项目" class="headerlink" title="租车项目"></a>租车项目</h2><p>###bug1:watch监听路由跳转</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;container&quot;</span>&gt;</span><br><span class="line">        &lt;!-- 地图 --&gt;</span><br><span class="line">       &lt;aMap /&gt;</span><br><span class="line">       &lt;!-- 汽车数据dom渲染区域 --&gt;</span><br><span class="line">        &lt;Cars /&gt;</span><br><span class="line">     &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;user-view&quot;</span> :<span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;isShow? &#x27;open&#x27;:&#x27;&#x27;&quot;</span> &gt;</span><br><span class="line">           &lt;router-view/&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">import</span> aMap <span class="keyword">from</span> <span class="string">&#x27;../amap/index&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Cars <span class="keyword">from</span> <span class="string">&#x27;../cars/index&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">&#x27;Index&#x27;</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    aMap,</span><br><span class="line">    Cars</span><br><span class="line">  &#125;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        isShow: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"><span class="comment">//   watch监听路由变化,有bug，一刷新用户页面就不见了</span></span><br><span class="line">  watch: &#123;</span><br><span class="line">      <span class="string">&#x27;$route&#x27;</span> : &#123;</span><br><span class="line">        <span class="comment">//   默认就是handler函数？</span></span><br><span class="line">          handler (newValue)&#123;</span><br><span class="line">              <span class="keyword">const</span> routerName = newValue.name</span><br><span class="line">              <span class="built_in">this</span>.isShow = routerName === <span class="string">&#x27;User&#x27;</span>? <span class="literal">true</span> : <span class="literal">false</span></span><br><span class="line">              <span class="built_in">console</span>.log(routerName)</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"><span class="comment">//   改为计算属性监听路由</span></span><br><span class="line"><span class="comment">//   computed: &#123;</span></span><br><span class="line"><span class="comment">//       isShow () &#123;</span></span><br><span class="line"><span class="comment">//           console.log(this.$route)</span></span><br><span class="line"><span class="comment">//           return this.$route.name === &#x27;User&#x27;</span></span><br><span class="line"><span class="comment">//       &#125;</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style lang=<span class="string">&quot;scss&quot;</span> scoped&gt;</span><br><span class="line">.container &#123;</span><br><span class="line">  .user-view &#123;</span><br><span class="line">      position: fixed;</span><br><span class="line">      top: <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//   right: 0;</span></span><br><span class="line">      right: -600px;</span><br><span class="line">      bottom: <span class="number">0</span>;</span><br><span class="line">      width: 410px;</span><br><span class="line">      background-color: #34393f;</span><br><span class="line">      z-index: <span class="number">10000</span>;</span><br><span class="line">    <span class="comment">//   </span></span><br><span class="line">    -webkit-transition: all .3s ease 0s;</span><br><span class="line">    -moz-transition: all .3s ease 0s;</span><br><span class="line">    -webkit-transition: all .3s ease 0s;</span><br><span class="line">    -ms-transition: all .3s ease 0s;</span><br><span class="line">    -o-transition: all .3s ease 0s;</span><br><span class="line">    transition: all .3s ease 0s;</span><br><span class="line">      &amp;.open &#123;</span><br><span class="line">          right: <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>需求：当路由跳转到/user页面时，右侧显示用户信息界面，通过watch监听路由变化判断是否当前路由是否是/user来决定是否显示用户页面，这样操作点击按钮跳转路由没有问题，页面刷新却无法显示用户页面，存在这一bug</p>
+</blockquote>
+<blockquote>
+<p>原因是：什么呢？深度监听的问题，vue为了性能考虑会限制监听深度，需要deep解除限制</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>解决方法1：解除deep限制</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">    <span class="string">&#x27;$route&#x27;</span> : &#123;</span><br><span class="line">      <span class="comment">//   默认就是handler函数？</span></span><br><span class="line">        handler (newValue)&#123;</span><br><span class="line">            <span class="keyword">const</span> routerName = newValue.name</span><br><span class="line">            <span class="built_in">this</span>.isShow = routerName === <span class="string">&#x27;User&#x27;</span>? <span class="literal">true</span> : <span class="literal">false</span></span><br><span class="line">            <span class="built_in">console</span>.log(routerName)</span><br><span class="line">        &#125;,</span><br><span class="line">            <span class="comment">//解除deep限制</span></span><br><span class="line">        deep:<span class="literal">true</span>,</span><br><span class="line">        immediate: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>解决方法2：改为由计算属性监听路由变化，因为计算属性的缓存机制？刷新不会导致路由发生变化，不发生变化就用之前缓存的？我是这样理解，后续确定一下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//改为计算属性监听路由</span></span><br><span class="line">computed: &#123;</span><br><span class="line">    isShow () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.$route)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.$route.name === <span class="string">&#x27;User&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</blockquote>
+<h3 id="bug2-swiper插件使用"><a href="#bug2-swiper插件使用" class="headerlink" title="bug2:swiper插件使用"></a>bug2:swiper插件使用</h3><p>swiper 右侧箭头出不来，2个slide会叠加在一起，很多个slide ，每个silde的宽度会很宽，800多px基本占满一个屏幕，导致滑块之间相隔很远,最后会有一大片空白</p>
+<p>解决办法</p>
+<blockquote>
+<p>1.我把每个滑块的宽强制改成跟内容物一样的宽度了，解决掉了每个silde的宽度会很宽问题导致空袭很大</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.swiper-slide &#123;</span><br><span class="line">  width: 505px !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2.右侧箭头怎么出现？原来是我包住轮播图的外层元素盒子没有给宽度，所以右侧箭头跑出了屏幕外面。。。。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.index_wrap &#123;</span><br><span class="line">   width: <span class="number">100</span>%;<span class="comment">// 给一个宽度，因为是fixed定位，所以右侧箭头想让其在屏幕右侧显示</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</blockquote>
+<h3 id="bug3：用户信息弹窗"><a href="#bug3：用户信息弹窗" class="headerlink" title="bug3：用户信息弹窗"></a>bug3：用户信息弹窗</h3><blockquote>
+<p>需求：点击除用户页面之外的地方是返回首页，用户页面隐藏回去</p>
+<p><strong>弹窗</strong></p>
+<p>bug:触发事件时会报错vue-router.esm.js?8c4f:2065 Uncaught (in promise) NavigationDuplicated: Avoided redundant navigation to current location: “/“.</p>
+</blockquote>
+<blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mounted () &#123;</span><br><span class="line">  <span class="built_in">document</span>.addEventListener(<span class="string">&#x27;mouseup&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> UserTar = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.user-view&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> (UserTar &amp;&amp; e.target != UserTar) &#123;</span><br><span class="line">        <span class="built_in">this</span>.$router.push(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：<strong>在使用 replace、push等方法时捕获异常</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">this</span>.$router.push(<span class="string">&#x27;/&#x27;</span>).catch(<span class="function"><span class="params">err</span> =&gt;</span> err)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>字体图标icon怎么跟右侧文字对齐，中线对齐？</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">span</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">vertical-align</span>: super;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：用vertical-align super属性值，因为字体图标也是文字，所以middle没有用</p>
+<h3 id="bug4-用户页面消失"><a href="#bug4-用户页面消失" class="headerlink" title="bug4 用户页面消失"></a>bug4 用户页面消失</h3><p>点击用户页面 里面的安全设置内容，用户界面会消失，并没有不消失，导致无法继续后续安全设置等路由内容</p>
+<p>原因：因为当时判断用户界面显示隐藏的条件有问题，没有考虑到后续safe等路径值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">  $route: &#123;</span><br><span class="line">    <span class="comment">//   默认就是handler函数？</span></span><br><span class="line">    handler (newValue) &#123;</span><br><span class="line">      <span class="keyword">const</span> routerName = newValue.name</span><br><span class="line">      <span class="comment">// 这里要考虑到后续用户界面里内容链接跳转的问题，路径会变化，不是user了</span></span><br><span class="line">      <span class="built_in">this</span>.isShow = routerName === <span class="string">&#x27;User&#x27;</span></span><br><span class="line">      <span class="comment">// console.log(routerName)</span></span><br><span class="line">    &#125;,</span><br><span class="line">    deep: <span class="literal">true</span>,</span><br><span class="line">    immediate: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>解决办法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">this</span>.isShow = routerName === <span class="string">&#x27;Index&#x27;</span> ? <span class="literal">false</span> : <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="bug5-git版本管理"><a href="#bug5-git版本管理" class="headerlink" title="bug5 git版本管理"></a>bug5 git版本管理</h3><p><strong>原因是没有提交一个对象，要先commit之后才会真正建立master分支，此时才可以建立其它分支。</strong></p>
+<p>git branch -a查看远程分支</p>
+<h3 id="bug6-v-show隐藏重复密码验证"><a href="#bug6-v-show隐藏重复密码验证" class="headerlink" title="bug6 v-show隐藏重复密码验证"></a>bug6 v-show隐藏重复密码验证</h3><p>表单验证v-show显示隐藏重复密码框，区别注册和登录页面，会有bug，因为show只是隐藏了重复密码，但验证仍然在，没有通过去，所以会登录不上去</p>
+<p>解决办法: 验证的时候判断一下是不是登录界面，是登陆界面就直接通过，不再进行验证即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 验证重复密码</span></span><br><span class="line">    <span class="keyword">var</span> checkRepassword = <span class="function">(<span class="params">rule, value, callback</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 如果是登录，则直接通过即可</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">this</span>.menuData[<span class="number">0</span>].current) &#123;</span><br><span class="line">        callback();</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.ruleForm.password = stripScript(value)</span><br><span class="line">      value = <span class="built_in">this</span>.ruleForm.password</span><br><span class="line">      <span class="keyword">if</span> (!value) &#123;</span><br><span class="line">        callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;请再次输入密码&quot;</span>));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(value !== <span class="built_in">this</span>.ruleForm.password) &#123;</span><br><span class="line">        callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;两次输入密码不一致&quot;</span>));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        callback();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="bug7"><a href="#bug7" class="headerlink" title="bug7"></a>bug7</h3><blockquote>
+<p>使用了elementui，由于代码中涉及到，根据登录/注册决定相应的表单的某几项出现的项是什么，需要用到v-if/v-show来切换，但是切换后，切换前的验证错误信息并没有清除，出现在切换后的el-form-item上。</p>
+</blockquote>
+<ul>
+<li><p>解决办法1：针对使用了v-if v-else需要切换的项，加上:key唯一区分就好了，告诉vue，切换后的表单项不是切换前的，所以你把错误验证也清空了</p>
+</li>
+<li><p>key的值是什么不重要，只需要这两个不一样就好了</p>
+</li>
+<li><p>:key=”menuData[0].current ? ‘1’:’2’”</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;邮箱&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;email&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;menuData[0].current ? &#x27;1&#x27;:&#x27;2&#x27;&quot;</span>&gt;</span></span><br><span class="line">       &lt;el-input</span><br><span class="line">         type=&quot;text&quot;</span><br><span class="line">         v-model=&quot;ruleForm.email&quot;</span><br><span class="line">         autocomplete=&quot;off&quot;</span><br><span class="line">       &gt;<span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;密码&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;password&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;menuData[0].current ? &#x27;3&#x27;:&#x27;4&#x27;&quot;</span>&gt;</span></span><br><span class="line">       &lt;el-input</span><br><span class="line">         type=&quot;password&quot;</span><br><span class="line">         v-model=&quot;ruleForm.password&quot;</span><br><span class="line">         autocomplete=&quot;off&quot;</span><br><span class="line">         minlength=&quot;6&quot;</span><br><span class="line">         maxlength=&quot;20&quot;</span><br><span class="line">       &gt;<span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>方法2 element-ui有重置表单的方法啦，用这个就好了</strong></p>
+</blockquote>
+<h3 id="bug8-验证码输入框无法输入"><a href="#bug8-验证码输入框无法输入" class="headerlink" title="bug8 验证码输入框无法输入"></a>bug8 验证码输入框无法输入</h3><p>我勒个去，复制的element-ui age那个表单v-model后面.number了所以没办法输入字母，只能数字</p>
+<h3 id="bug9-关于字体图标与文字对齐"><a href="#bug9-关于字体图标与文字对齐" class="headerlink" title="bug9 关于字体图标与文字对齐"></a>bug9 关于字体图标与文字对齐</h3><p>super</p>
+<h3 id="bug10"><a href="#bug10" class="headerlink" title="bug10"></a>bug10</h3><p>v-for循环遍历路由导航栏，出不来，因为我的数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//因为这里我只写到了.options！！！害我找半天，循环遍历不出来，菜</span></span><br><span class="line"><span class="keyword">const</span> routers = reactive(root.$router.options.routes)</span><br></pre></td></tr></table></figure>
+
+<h3 id="bug11-数据类型"><a href="#bug11-数据类型" class="headerlink" title="bug11 数据类型"></a>bug11 数据类型</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-submenu :index=<span class="string">&quot;index+&#x27;&#x27;&quot;</span> v-<span class="keyword">for</span>=<span class="string">&quot;(item,index) in routers&quot;</span> :key=<span class="string">&quot;index&quot;</span>&gt;</span><br><span class="line">        &lt;template slot=<span class="string">&quot;title&quot;</span>&gt;</span><br><span class="line">          &lt;i <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;el-icon-location&quot;</span>&gt;&lt;/i&gt;</span><br><span class="line">          &lt;span v-<span class="keyword">if</span>=<span class="string">&quot;item.meta&quot;</span>&gt;&#123;&#123;item.meta.title&#125;&#125;&lt;/span&gt;</span><br><span class="line">        &lt;/template&gt;</span><br><span class="line">        &lt;el-menu-item-group&gt;</span><br><span class="line">          &lt;template slot=<span class="string">&quot;title&quot;</span>&gt;分组一&lt;/template&gt;</span><br><span class="line">          &lt;el-menu-item index=<span class="string">&quot;1-1&quot;</span>&gt;选项<span class="number">1</span>&lt;/el-menu-item&gt;</span><br><span class="line">        &lt;/el-menu-item-group&gt;</span><br><span class="line">      &lt;/el-submenu&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vue.runtime.esm.js?2b0e:<span class="number">619</span> [Vue warn]: Invalid prop: type check failed <span class="keyword">for</span> prop <span class="string">&quot;index&quot;</span>. Expected <span class="built_in">String</span> <span class="keyword">with</span> value <span class="string">&quot;0&quot;</span>, got <span class="built_in">Number</span> <span class="keyword">with</span> value <span class="number">0.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>因为index是要写字符string数据，index是数字型，＋上一个空，转换成字符型即可</p>
+<p>template标签不会被遍历生成</p>
+<h3 id="bug12：iconfont-svg图标引用后不能用fill更改颜色"><a href="#bug12：iconfont-svg图标引用后不能用fill更改颜色" class="headerlink" title="bug12：iconfont svg图标引用后不能用fill更改颜色"></a>bug12：iconfont svg图标引用后不能用fill更改颜色</h3><blockquote>
+<p><strong>用iconfont自带的批量去色功能解决</strong><br>今天在使用 Symbol 代码引用图标时发现，设置颜色后，有一部分图标还是显示原始的颜色。原来这部分 svg图标带有 fill 属性，这种图标不能本地修改 fill 属性，需要在项目中移除默认颜色。</p>
+<p><img src="C:\Users\11449\AppData\Roaming\Typora\typora-user-images\image-20210207154320166.png" alt="image-20210207154320166"></p>
+</blockquote>
+<h3 id="bug13-v-if要在外层容器上"><a href="#bug13-v-if要在外层容器上" class="headerlink" title="bug13 v-if要在外层容器上"></a>bug13 v-if要在外层容器上</h3><p>v-for与v-if不能在同一层容器上</p>
+<p>###bug14：背景色没有铺满屏幕</p>
+<blockquote>
+<p>导航栏高度设置了100vh，但是当高度很高时有滚动条时却没办法铺满屏幕，底部有空白，原因是因为我用了绝对定位！！！absolute，会相对于body’进行定位，要用fixed定位才会对！！好好想一想吧少年</p>
+</blockquote>
+<ul>
+<li>左侧导航栏fixed定位，中间main区域absolute定位</li>
+</ul>
+<h3 id="bug15，返回数据多层次"><a href="#bug15，返回数据多层次" class="headerlink" title="bug15，返回数据多层次"></a>bug15，返回数据多层次</h3><p>修改数据||多层次||引用数据类型||直接修改||双向被修改</p>
+<p>bug:switch按钮diabled状态都同时禁用启用</p>
+<h3 id="bug16-分页按钮点击时候上一个多选框选中的会被清除"><a href="#bug16-分页按钮点击时候上一个多选框选中的会被清除" class="headerlink" title="bug16:分页按钮点击时候上一个多选框选中的会被清除"></a>bug16:分页按钮点击时候上一个多选框选中的会被清除</h3><h3 id="bug17-编辑按钮无法弹窗出来，最后写在一起变成函数调用才出现了"><a href="#bug17-编辑按钮无法弹窗出来，最后写在一起变成函数调用才出现了" class="headerlink" title="bug17 编辑按钮无法弹窗出来，最后写在一起变成函数调用才出现了"></a>bug17 编辑按钮无法弹窗出来，最后写在一起变成函数调用才出现了</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 新增</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">const</span> addNewUser = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">   <span class="comment">// data.titleString = &quot;新增&quot;;</span></span><br><span class="line">   <span class="comment">// data.isVisible = true;</span></span><br><span class="line">   visible(<span class="string">&quot;新增&quot;</span>)</span><br><span class="line"> &#125;;</span><br><span class="line"> <span class="comment">//揉合成visible函数</span></span><br><span class="line"> <span class="keyword">const</span> visible = <span class="function">(<span class="params">title</span>) =&gt;</span> &#123;</span><br><span class="line">   data.titleString = title;</span><br><span class="line">   data.isVisible = <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 编辑</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">const</span> editCurrent = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">   visible(<span class="string">&quot;编辑&quot;</span>)</span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>“<em>Node.js</em> 是服务器端的 JavaScript 运行环境,它具有无阻塞(non-blocking)和事件驱动(event-driven)等的特色,</p>
+<p><a href="mailto:&#50;&#48;&#50;&#x31;&#x30;&#x32;&#50;&#52;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#x6d;">&#50;&#48;&#50;&#x31;&#x30;&#x32;&#50;&#52;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>shasha1992210</p>
+<h3 id="Cannot-read-property-‘length’-of-undefined-问题解决思路"><a href="#Cannot-read-property-‘length’-of-undefined-问题解决思路" class="headerlink" title="Cannot read property ‘length’ of undefined 问题解决思路"></a>Cannot read property ‘length’ of undefined 问题解决思路</h3><p>一、排除 js 内的 所有的xxx.length 的 变量是否是数组类型。</p>
+<p>二、排除 html 代码上是否引用过xxx.length 。</p>
+<p>如果以上注释了排除还是报错的话。</p>
+<p>还需要关注的就是 v-for ，因为代码再执行到  v-for=”(item,index) in arry”  这里时，如果arry不是个数组就会导致报错 xxxx.length 找不到，因为渲染的时候会内部运行 for 循环就会用到 xxx.length。这个是不能很快直观的能处理到的隐藏问题。</p>
+<h3 id="bug19-使用elementUI中的el-checkbox"><a href="#bug19-使用elementUI中的el-checkbox" class="headerlink" title="bug19 使用elementUI中的el-checkbox"></a>bug19 使用elementUI中的el-checkbox</h3><p>使用elementUI中的el-checkbox遇上Cannot read property ‘length’ of undefined错误应该怎么办？</p>
+<p>然后我感觉是因为层级太深的原因，然后报了8个关于checkbox的错误。<br>之后我把和chckbox绑定的数据放在了外层，然后就没有报错了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/js/" rel="tag"># js</a>
+              <a href="/tags/vue/" rel="tag"># vue</a>
+              <a href="/tags/%E6%8A%A5%E9%94%99/" rel="tag"># 报错</a>
+              <a href="/tags/axios/" rel="tag"># axios</a>
+              <a href="/tags/%E9%A1%B9%E7%9B%AE/" rel="tag"># 项目</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/02/debounce-throttle/" rel="prev" title="函数的防抖与节流">
+                  <i class="fa fa-chevron-left"></i> 函数的防抖与节流
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/02/26/%E9%9A%8F%E4%BE%BF%E5%86%99%E7%82%B9%E4%BB%80%E4%B9%88/" rel="next" title="随便写点什么">
+                  随便写点什么 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81Mjg1OS8yOTMzNw=="></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Song Shasha</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">21k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">19 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"Uj1JM9X7G8PTG5CETJGy710i-9Nh9j0Va","app_key":"djBQuONjOv9B6RAOWDQmgfsQ","server_url":null,"security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2021/01/06/租车项目-bug/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
