@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>comment</title>
+    <url>/2021/03/03/comment/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="a10128fcd85c2d2e4728b2fbfde0fcdc2d53f3dcdb0cc797a50e6fd801589b90">4630436162ade97ba2718b7d0c4b3b637b85116c2dd9ac805548a43005ef47c119319d3dcfb96594801ab471f6cfe41a4ffc22db95a4bc4ee7cee3d5d7225fc583065d6c9654dfcb050d79cbef5288f13e0d503ab0ac72d9340fc4ad4b7cd936dc0e1a50375c6c0df5ad34df9ab3b13b</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>测试</category>
+        <category>评论功能</category>
+      </categories>
+      <tags>
+        <tag>测试</tag>
+        <tag>评论</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>缓存机制强缓存与协商缓存</title>
     <url>/2020/02/26/06_%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/</url>
     <content><![CDATA[<h1 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h1><h2 id="1-缓存理解"><a href="#1-缓存理解" class="headerlink" title="1. 缓存理解"></a>1. 缓存理解</h2><ol>
@@ -108,30 +132,6 @@
       </tags>
   </entry>
   <entry>
-    <title>comment</title>
-    <url>/2021/03/03/comment/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="a10128fcd85c2d2e4728b2fbfde0fcdc2d53f3dcdb0cc797a50e6fd801589b90">4630436162ade97ba2718b7d0c4b3b637b85116c2dd9ac805548a43005ef47c119319d3dcfb96594801ab471f6cfe41a4ffc22db95a4bc4ee7cee3d5d7225fc583065d6c9654dfcb050d79cbef5288f13e0d503ab0ac72d9340fc4ad4b7cd936dc0e1a50375c6c0df5ad34df9ab3b13b</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">您好, 这里需要密码.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>测试</category>
-        <category>评论功能</category>
-      </categories>
-      <tags>
-        <tag>测试</tag>
-        <tag>评论</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>函数的防抖与节流</title>
     <url>/2020/10/02/debounce-throttle/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">
@@ -154,6 +154,33 @@
       </categories>
       <tags>
         <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>移动端布局及页面自适应布局（rem布局）</title>
+    <url>/2021/02/27/flexible/</url>
+    <content><![CDATA[<p>常见的页面布局方式有</p>
+<ul>
+<li>静态布局  px布局 即传统web布局，网页上所有元素尺寸一律用px作为单位</li>
+<li>流式布局（Liquid Layout） 主要的划分区域的尺寸使用百分数（搭配min-*、max-*属性使用）以京东移动端为代表</li>
+<li>自适应布局（Adaptive Layout） 即创建多个静态布局，每个静态布局对应一个屏幕分辨率范围</li>
+<li>响应式布局（Responsive Layout） 检测窗口大小利用bootstrap布局</li>
+<li>弹性布局（rem/em布局） css3 rem<span id="more"></span></li>
+</ul>
+<p>1.如果只做pc端，那么静态布局（定宽度）是最好的选择；</p>
+<p>2.如果做移动端，且设计对高度和元素间距要求不高，那么弹性布局（rem+js）是最好的选择，一份css+一份js调节font-size搞定；</p>
+<p>3.如果pc，移动要兼容，而且要求很高那么响应式布局还是最好的选择，前提是设计根据不同的高宽做不同的设计，响应式根据媒体查询做不同的布局。</p>
+<h4 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h4><p>rem (root em)是一个相对单位，是相对于html元素的字体大小（em是父元素字体大小）。比如，根元素（html）font-size=12px; 则1rem就是12px。</p>
+<h4 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a>viewport</h4><h4 id="media"><a href="#media" class="headerlink" title="@media"></a>@media</h4><h4 id="vh"><a href="#vh" class="headerlink" title="vh"></a>vh</h4><h4 id="dpr"><a href="#dpr" class="headerlink" title="dpr"></a>dpr</h4><h4 id="二倍图"><a href="#二倍图" class="headerlink" title="二倍图"></a>二倍图</h4><h4 id="移动端适配方案"><a href="#移动端适配方案" class="headerlink" title="移动端适配方案"></a>移动端适配方案</h4><h5 id="手机淘宝适配方案"><a href="#手机淘宝适配方案" class="headerlink" title="手机淘宝适配方案"></a>手机淘宝适配方案</h5>]]></content>
+      <categories>
+        <category>web前端</category>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>移动端</tag>
+        <tag>rem</tag>
+        <tag>flexible</tag>
       </tags>
   </entry>
   <entry>
@@ -184,30 +211,25 @@
       </tags>
   </entry>
   <entry>
-    <title>移动端布局及页面自适应布局（rem布局）</title>
-    <url>/2021/02/27/flexible/</url>
-    <content><![CDATA[<p>常见的页面布局方式有</p>
-<ul>
-<li>静态布局  px布局 即传统web布局，网页上所有元素尺寸一律用px作为单位</li>
-<li>流式布局（Liquid Layout） 主要的划分区域的尺寸使用百分数（搭配min-*、max-*属性使用）以京东移动端为代表</li>
-<li>自适应布局（Adaptive Layout） 即创建多个静态布局，每个静态布局对应一个屏幕分辨率范围</li>
-<li>响应式布局（Responsive Layout） 检测窗口大小利用bootstrap布局</li>
-<li>弹性布局（rem/em布局） css3 rem<span id="more"></span></li>
-</ul>
-<p>1.如果只做pc端，那么静态布局（定宽度）是最好的选择；</p>
-<p>2.如果做移动端，且设计对高度和元素间距要求不高，那么弹性布局（rem+js）是最好的选择，一份css+一份js调节font-size搞定；</p>
-<p>3.如果pc，移动要兼容，而且要求很高那么响应式布局还是最好的选择，前提是设计根据不同的高宽做不同的设计，响应式根据媒体查询做不同的布局。</p>
-<h4 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h4><p>rem (root em)是一个相对单位，是相对于html元素的字体大小（em是父元素字体大小）。比如，根元素（html）font-size=12px; 则1rem就是12px。</p>
-<h4 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a>viewport</h4><h4 id="media"><a href="#media" class="headerlink" title="@media"></a>@media</h4><h4 id="vh"><a href="#vh" class="headerlink" title="vh"></a>vh</h4><h4 id="dpr"><a href="#dpr" class="headerlink" title="dpr"></a>dpr</h4><h4 id="二倍图"><a href="#二倍图" class="headerlink" title="二倍图"></a>二倍图</h4><h4 id="移动端适配方案"><a href="#移动端适配方案" class="headerlink" title="移动端适配方案"></a>移动端适配方案</h4><h5 id="手机淘宝适配方案"><a href="#手机淘宝适配方案" class="headerlink" title="手机淘宝适配方案"></a>手机淘宝适配方案</h5>]]></content>
+    <title>web开发中实现会话跟踪的常用技术方法</title>
+    <url>/2020/03/08/http/</url>
+    <content><![CDATA[<p>由于http是无状态的协议，这种特性严重阻碍了客户端与服务器进行动态交互，例如购物车程序，客户在购物车中添加了商品，服务器如何知道购物车已有的物品呢？为了支持客户端与服务器之间的交互,为了弥补http的不足，目前实现会话跟踪的常用技术方法：cookie、session、url重写、隐藏input。</p>
+<span id="more"></span>
+
+<h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><p>Cookie是客户端技术，程序把每个用户的数据以cookie的形式写给用户各自的浏览器。当用户使用浏览器再去访问服务器中的web资源时，就会带着各自的数据去。</p>
+<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><p>Session 是存储在服务端的，并针对每个客户端（客户），通过SessionID来区别不同用户的。 该会话过程直到session失效（服务端关闭），或者客户端关闭时结束。相比cookie更安全，一般网站是session结合着cookie一起使用的</p>
+<h3 id="url重写"><a href="#url重写" class="headerlink" title="url重写"></a>url重写</h3><p>客户程序在每个URL的尾部添加一些额外数据。这些数据标识当前的会话，服务器将这个标识符与它存储的用户相关数据关联起来。 URL重写是比较不错的会话跟踪解决方案，即使浏览器不支持 cookie 或在用户禁用 cookie 的情况下，这种方案也能够工作。 最大的缺点是每个页面都是动态的，如果用户离开了会话并通过书签或链接再次回来，会话的信息也会丢失，因为存储下来的链接含有错误的标识信息。</p>
+<h3 id="隐藏input"><a href="#隐藏input" class="headerlink" title="隐藏input"></a>隐藏input</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;content&quot;</span> <span class="attr">value</span>=<span class="string">&quot;haha&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>提交表单时，要将指定的名称和值自动包括在 GET 或 POST 数据中。这个隐藏域可以用来存储有关会话的信息，但它的主要缺点是：仅当每个页面都是由表单提交而动态生成时，才能使用这种方法。单击常规的超文本链接并 不产生表单提交，因此隐藏的表单域不能支持通常的会话跟踪，只能用于一系列特定的操作中，比如在线商店的结账过程。 </p>
+]]></content>
       <categories>
-        <category>web前端</category>
-        <category>CSS</category>
+        <category>面试</category>
+        <category>初级</category>
       </categories>
       <tags>
-        <tag>js</tag>
-        <tag>移动端</tag>
-        <tag>rem</tag>
-        <tag>flexible</tag>
+        <tag>http</tag>
+        <tag>cookie</tag>
       </tags>
   </entry>
   <entry>
@@ -250,41 +272,6 @@
       </tags>
   </entry>
   <entry>
-    <title>web开发中实现会话跟踪的常用技术方法</title>
-    <url>/2020/03/08/http/</url>
-    <content><![CDATA[<p>由于http是无状态的协议，这种特性严重阻碍了客户端与服务器进行动态交互，例如购物车程序，客户在购物车中添加了商品，服务器如何知道购物车已有的物品呢？为了支持客户端与服务器之间的交互,为了弥补http的不足，目前实现会话跟踪的常用技术方法：cookie、session、url重写、隐藏input。</p>
-<span id="more"></span>
-
-<h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><p>Cookie是客户端技术，程序把每个用户的数据以cookie的形式写给用户各自的浏览器。当用户使用浏览器再去访问服务器中的web资源时，就会带着各自的数据去。</p>
-<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><p>Session 是存储在服务端的，并针对每个客户端（客户），通过SessionID来区别不同用户的。 该会话过程直到session失效（服务端关闭），或者客户端关闭时结束。相比cookie更安全，一般网站是session结合着cookie一起使用的</p>
-<h3 id="url重写"><a href="#url重写" class="headerlink" title="url重写"></a>url重写</h3><p>客户程序在每个URL的尾部添加一些额外数据。这些数据标识当前的会话，服务器将这个标识符与它存储的用户相关数据关联起来。 URL重写是比较不错的会话跟踪解决方案，即使浏览器不支持 cookie 或在用户禁用 cookie 的情况下，这种方案也能够工作。 最大的缺点是每个页面都是动态的，如果用户离开了会话并通过书签或链接再次回来，会话的信息也会丢失，因为存储下来的链接含有错误的标识信息。</p>
-<h3 id="隐藏input"><a href="#隐藏input" class="headerlink" title="隐藏input"></a>隐藏input</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;content&quot;</span> <span class="attr">value</span>=<span class="string">&quot;haha&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>提交表单时，要将指定的名称和值自动包括在 GET 或 POST 数据中。这个隐藏域可以用来存储有关会话的信息，但它的主要缺点是：仅当每个页面都是由表单提交而动态生成时，才能使用这种方法。单击常规的超文本链接并 不产生表单提交，因此隐藏的表单域不能支持通常的会话跟踪，只能用于一系列特定的操作中，比如在线商店的结账过程。 </p>
-]]></content>
-      <categories>
-        <category>面试</category>
-        <category>初级</category>
-      </categories>
-      <tags>
-        <tag>http</tag>
-        <tag>cookie</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>line-height的继承</title>
-    <url>/2021/03/20/line-height%E7%9A%84%E7%BB%A7%E6%89%BF/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>web前端</category>
-        <category>CSS</category>
-      </categories>
-      <tags>
-        <tag>css</tag>
-        <tag>line-height</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>vue移动端项目中两种方式实现页面自适应布局</title>
     <url>/2021/02/27/media-rem/</url>
     <content><![CDATA[<p>方案一：手机淘宝移动端适配方案，引入flexible.js文件<br>src =&gt; assets =&gt; flexible.js<br>css样式时应计算为相应rem 利用vsCode插件</p>
@@ -302,11 +289,24 @@
       </categories>
       <tags>
         <tag>移动端</tag>
-        <tag>vue</tag>
         <tag>rem</tag>
         <tag>flexible</tag>
+        <tag>vue</tag>
         <tag>CSS</tag>
         <tag>布局</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>line-height的继承</title>
+    <url>/2021/03/20/line-height%E7%9A%84%E7%BB%A7%E6%89%BF/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>web前端</category>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>css</tag>
+        <tag>line-height</tag>
       </tags>
   </entry>
   <entry>
@@ -447,16 +447,6 @@
       </tags>
   </entry>
   <entry>
-    <title>随便写点什么</title>
-    <url>/2021/02/26/%E9%9A%8F%E4%BE%BF%E5%86%99%E7%82%B9%E4%BB%80%E4%B9%88/</url>
-    <content><![CDATA[<p>还差评论功能</p>
-<span id="more"></span>
-]]></content>
-      <categories>
-        <category>日常</category>
-      </categories>
-  </entry>
-  <entry>
     <title>项目过程中遇到的报错问题解决</title>
     <url>/2021/01/06/%E7%A7%9F%E8%BD%A6%E9%A1%B9%E7%9B%AE-bug/</url>
     <content><![CDATA[<p>租车项目，遇到的bug，以及解决办法，记录一下</p>
@@ -571,7 +561,7 @@
 <h3 id="bug16-分页按钮点击时候上一个多选框选中的会被清除"><a href="#bug16-分页按钮点击时候上一个多选框选中的会被清除" class="headerlink" title="bug16:分页按钮点击时候上一个多选框选中的会被清除"></a>bug16:分页按钮点击时候上一个多选框选中的会被清除</h3><h3 id="bug17-编辑按钮无法弹窗出来，最后写在一起变成函数调用才出现了"><a href="#bug17-编辑按钮无法弹窗出来，最后写在一起变成函数调用才出现了" class="headerlink" title="bug17 编辑按钮无法弹窗出来，最后写在一起变成函数调用才出现了"></a>bug17 编辑按钮无法弹窗出来，最后写在一起变成函数调用才出现了</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 新增</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">const</span> addNewUser = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">   <span class="comment">// data.titleString = &quot;新增&quot;;</span></span><br><span class="line">   <span class="comment">// data.isVisible = true;</span></span><br><span class="line">   visible(<span class="string">&quot;新增&quot;</span>)</span><br><span class="line"> &#125;;</span><br><span class="line"> <span class="comment">//揉合成visible函数</span></span><br><span class="line"> <span class="keyword">const</span> visible = <span class="function">(<span class="params">title</span>) =&gt;</span> &#123;</span><br><span class="line">   data.titleString = title;</span><br><span class="line">   data.isVisible = <span class="literal">true</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 编辑</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">const</span> editCurrent = <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">   visible(<span class="string">&quot;编辑&quot;</span>)</span><br><span class="line"> &#125;;</span><br></pre></td></tr></table></figure>
 
 <p>“<em>Node.js</em> 是服务器端的 JavaScript 运行环境,它具有无阻塞(non-blocking)和事件驱动(event-driven)等的特色,</p>
-<p><a href="mailto:&#x32;&#x30;&#50;&#49;&#48;&#x32;&#50;&#x34;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#x6d;">&#x32;&#x30;&#50;&#49;&#48;&#x32;&#50;&#x34;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p><a href="mailto:&#x32;&#48;&#x32;&#49;&#x30;&#x32;&#50;&#x34;&#x40;&#x71;&#113;&#x2e;&#99;&#111;&#x6d;">&#x32;&#48;&#x32;&#49;&#x30;&#x32;&#50;&#x34;&#x40;&#x71;&#113;&#x2e;&#99;&#111;&#x6d;</a></p>
 <p>shasha1992210</p>
 <h3 id="Cannot-read-property-‘length’-of-undefined-问题解决思路"><a href="#Cannot-read-property-‘length’-of-undefined-问题解决思路" class="headerlink" title="Cannot read property ‘length’ of undefined 问题解决思路"></a>Cannot read property ‘length’ of undefined 问题解决思路</h3><p>一、排除 js 内的 所有的xxx.length 的 变量是否是数组类型。</p>
 <p>二、排除 html 代码上是否引用过xxx.length 。</p>
@@ -591,5 +581,15 @@
         <tag>axios</tag>
         <tag>项目</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>随便写点什么</title>
+    <url>/2021/02/26/%E9%9A%8F%E4%BE%BF%E5%86%99%E7%82%B9%E4%BB%80%E4%B9%88/</url>
+    <content><![CDATA[<p>还差评论功能</p>
+<span id="more"></span>
+]]></content>
+      <categories>
+        <category>日常</category>
+      </categories>
   </entry>
 </search>
