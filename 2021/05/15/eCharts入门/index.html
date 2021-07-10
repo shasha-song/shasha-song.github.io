@@ -23,15 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"shasha-song.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="现在开始种树啦，树上住着我这只前端小菜鸟">
+<meta name="description" content="eCharts快速上手，分为5个步骤   步骤1：引入echarts.js文件 步骤2：准备一个呈现图表的盒子 步骤3：初始化echarts实例对象 步骤4：准备配置项 步骤5：将配置项设置给echarts实例对象">
 <meta property="og:type" content="article">
 <meta property="og:title" content="eCharts入门">
 <meta property="og:url" content="https://shasha-song.github.io/2021/05/15/eCharts%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="SSSの博客">
-<meta property="og:description" content="现在开始种树啦，树上住着我这只前端小菜鸟">
+<meta property="og:description" content="eCharts快速上手，分为5个步骤   步骤1：引入echarts.js文件 步骤2：准备一个呈现图表的盒子 步骤3：初始化echarts实例对象 步骤4：准备配置项 步骤5：将配置项设置给echarts实例对象">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-05-15T15:23:33.000Z">
-<meta property="article:modified_time" content="2021-07-10T07:41:03.387Z">
+<meta property="article:modified_time" content="2021-07-10T13:26:42.338Z">
 <meta property="article:author" content="一只鸟">
 <meta property="article:tag" content="eCharts">
 <meta name="twitter:card" content="summary">
@@ -184,7 +184,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -197,6 +197,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E5%BC%95%E5%85%A5echarts-js%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">步骤一：引入echarts.js文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9A%E5%87%86%E5%A4%87%E4%B8%80%E4%B8%AA%E5%91%88%E7%8E%B0%E5%9B%BE%E8%A1%A8%E7%9A%84%E5%85%B7%E5%A4%87%E5%AE%BD%E9%AB%98%E7%9A%84%E7%9B%92%E5%AD%90"><span class="nav-number">2.</span> <span class="nav-text">步骤二：准备一个呈现图表的具备宽高的盒子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%89%EF%BC%9A%E5%88%9D%E5%A7%8B%E5%8C%96echarts%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.</span> <span class="nav-text">步骤三：初始化echarts实例对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E5%9B%9B%EF%BC%9A-%E5%87%86%E5%A4%87%E9%85%8D%E7%BD%AE%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text">步骤四： 准备配置项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%94%EF%BC%9A%E5%B0%86%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AE%BE%E7%BD%AE%E7%BB%99echarts%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">步骤五：将配置项设置给echarts实例对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#echarts%E8%87%AA%E9%80%82%E5%BA%94%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="nav-number">6.1.</span> <span class="nav-text">echarts自适应的实现？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE%E9%A1%B9"><span class="nav-number">6.2.</span> <span class="nav-text">通用配置项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%A0%B7%E5%BC%8F%E5%B1%9E%E6%80%A7%E9%85%8D%E7%BD%AE"><span class="nav-number">6.3.</span> <span class="nav-text">常见样式属性配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%8A%A8%E7%94%BB%E5%B1%9E%E6%80%A7%E9%85%8D%E7%BD%AE"><span class="nav-number">6.4.</span> <span class="nav-text">常见动画属性配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93%E6%95%B0%E6%8D%AE"><span class="nav-number">6.5.</span> <span class="nav-text">如何实现动态渲染数据</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -303,7 +304,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-10 15:41:03" itemprop="dateModified" datetime="2021-07-10T15:41:03+08:00">2021-07-10</time>
+        <time title="修改时间：2021-07-10 21:26:42" itemprop="dateModified" datetime="2021-07-10T21:26:42+08:00">2021-07-10</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -334,14 +335,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>0</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -352,7 +353,56 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <blockquote>
+<p> eCharts快速上手，分为5个步骤</p>
+</blockquote>
+<ul>
+<li>步骤1：引入echarts.js文件</li>
+<li>步骤2：准备一个呈现图表的盒子</li>
+<li>步骤3：初始化echarts实例对象</li>
+<li>步骤4：准备配置项</li>
+<li>步骤5：将配置项设置给echarts实例对象<span id="more"></span>
+
+</li>
+</ul>
+<h3 id="步骤一：引入echarts-js文件"><a href="#步骤一：引入echarts-js文件" class="headerlink" title="步骤一：引入echarts.js文件"></a>步骤一：引入echarts.js文件</h3><blockquote>
+<p>vue中通过npm 安装echarts 依赖<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install echarts --save</span><br></pre></td></tr></table></figure><br>在main.js中全局引入/或者按需引入<br> <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 引入 ECharts 主模块</span></span><br><span class="line"><span class="keyword">import</span> echarts <span class="keyword">from</span> <span class="string">&#x27;echarts/lib/echarts&#x27;</span></span><br><span class="line"><span class="comment">// 引入柱状图</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;echarts/lib/chart/bar&#x27;</span></span><br><span class="line"><span class="comment">// // 引入提示框和标题组件</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;echarts/lib/component/tooltip&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;echarts/lib/component/title&#x27;</span></span><br></pre></td></tr></table></figure><br>通过标签方式直接引入构建好的 echarts 文件<br> <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;lib/echarts.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="步骤二：准备一个呈现图表的具备宽高的盒子"><a href="#步骤二：准备一个呈现图表的具备宽高的盒子" class="headerlink" title="步骤二：准备一个呈现图表的具备宽高的盒子"></a>步骤二：准备一个呈现图表的具备宽高的盒子</h3><blockquote>
+<p>html文件中<br> <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 为 ECharts 准备一个具备大小（宽高）的 DOM --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;main&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 600px;height:400px;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure><br>vue中</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 为 ECharts 准备一个具备大小（宽高）的 DOM --&gt;</span><br><span class="line">&lt;div ref&#x3D;&quot;main&quot; style&#x3D;&quot;width: 600px;height:400px;&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="步骤三：初始化echarts实例对象"><a href="#步骤三：初始化echarts实例对象" class="headerlink" title="步骤三：初始化echarts实例对象"></a>步骤三：初始化echarts实例对象</h3><blockquote>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"> <span class="comment">// 引入 ECharts 主模块</span></span><br><span class="line"><span class="keyword">import</span> echarts <span class="keyword">from</span> <span class="string">&#x27;echarts/lib/echarts&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">&#x27;FansIndex&#x27;</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    <span class="comment">// MapDemo</span></span><br><span class="line">  &#125;,</span><br><span class="line">  props: &#123;&#125;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;&#125;,</span><br><span class="line">  created () &#123;&#125;,</span><br><span class="line">  mounted () &#123;</span><br><span class="line">    <span class="comment">// 基于准备好的dom，初始化echarts实例</span></span><br><span class="line">    <span class="keyword">var</span> myChart = echarts.init(<span class="built_in">this</span>.$refs.main)</span><br><span class="line">    <span class="comment">// 指定图表的配置项和数据</span></span><br><span class="line">    <span class="keyword">var</span> option = &#123;</span><br><span class="line">      title: &#123;</span><br><span class="line">        text: <span class="string">&#x27;ECharts 入门示例&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      tooltip: &#123;&#125;,</span><br><span class="line">      legend: &#123;</span><br><span class="line">        data: [<span class="string">&#x27;销量&#x27;</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      xAxis: &#123;</span><br><span class="line">        data: [<span class="string">&#x27;衬衫&#x27;</span>, <span class="string">&#x27;羊毛衫&#x27;</span>, <span class="string">&#x27;雪纺衫&#x27;</span>, <span class="string">&#x27;裤子&#x27;</span>, <span class="string">&#x27;高跟鞋&#x27;</span>, <span class="string">&#x27;袜子&#x27;</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      yAxis: &#123;&#125;,</span><br><span class="line">      series: [&#123;</span><br><span class="line">        name: <span class="string">&#x27;销量&#x27;</span>,</span><br><span class="line">        type: <span class="string">&#x27;bar&#x27;</span>,</span><br><span class="line">        data: [<span class="number">5</span>, <span class="number">20</span>, <span class="number">36</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">20</span>]</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 使用刚指定的配置项和数据显示图表。</span></span><br><span class="line">    myChart.setOption(option)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤四：-准备配置项"><a href="#步骤四：-准备配置项" class="headerlink" title="步骤四： 准备配置项"></a>步骤四： 准备配置项</h3><blockquote>
+<p>配置项可以动态设置</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// </span></span><br></pre></td></tr></table></figure>
+<h3 id="步骤五：将配置项设置给echarts实例对象"><a href="#步骤五：将配置项设置给echarts实例对象" class="headerlink" title="步骤五：将配置项设置给echarts实例对象"></a>步骤五：将配置项设置给echarts实例对象</h3><blockquote>
+<p>实例对象的setOption方法</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myChart.setOption(option)</span><br></pre></td></tr></table></figure>
+
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><h4 id="echarts自适应的实现？"><a href="#echarts自适应的实现？" class="headerlink" title="echarts自适应的实现？"></a>echarts自适应的实现？</h4><ul>
+<li>resize<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听window窗口大小变化的事件</span></span><br><span class="line">  <span class="built_in">window</span>.onresize = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// console.log(&#x27;window.onresize...&#x27;)</span></span><br><span class="line">    <span class="comment">// 调用echarts实例对象的resize方法</span></span><br><span class="line">    myCharts.resize()</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="通用配置项"><a href="#通用配置项" class="headerlink" title="通用配置项"></a>通用配置项</h4><blockquote>
+<p><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#title">配置项文档</a></p>
+</blockquote>
+</li>
+<li>x轴 y轴 数据 类目轴 数值轴—-xAxis yAxis</li>
+<li>图表距离x轴 y轴 位置—-grid</li>
+<li>标题 —-title</li>
+<li>图表类型 柱状图 折线图 饼图 散点图 地图 —- series<h4 id="常见样式属性配置"><a href="#常见样式属性配置" class="headerlink" title="常见样式属性配置"></a>常见样式属性配置</h4></li>
+<li>折线图 直线 曲线</li>
+<li>柱状图 图例 大小 宽高 间距</li>
+<li><h4 id="常见动画属性配置"><a href="#常见动画属性配置" class="headerlink" title="常见动画属性配置"></a>常见动画属性配置</h4><h4 id="如何实现动态渲染数据"><a href="#如何实现动态渲染数据" class="headerlink" title="如何实现动态渲染数据"></a>如何实现动态渲染数据</h4><blockquote>
+<p>截取数据，分成几个数据组，利用定时器，每次渲染不同数据，重复轮回即可</p>
+</blockquote>
+</li>
+</ul>
+
     </div>
 
     
@@ -430,13 +480,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">35k</span>
+    <span title="站点总字数">37k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">31 分钟</span>
+    <span title="站点阅读时长">33 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
