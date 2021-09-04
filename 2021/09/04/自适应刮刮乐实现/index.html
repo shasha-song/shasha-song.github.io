@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shasha-song.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="自适应、响应式刮刮乐实现，前端+请求接口实现，所需技术  移动端自适应rem + flexible.js布局 canvas绘制矩形以及文字，以及清除 offsetTop&#x2F;offsetLeft、scrollTop&#x2F;scrollLeft、clientX&#x2F;clientY基础知识 pc端鼠标事件mousedown&#x2F;mousemove&#x2F;mouseup,移动端touch事件touchstart&#x2F;touchmo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自适应刮刮乐实现">
+<meta property="og:url" content="https://shasha-song.github.io/2021/09/04/%E8%87%AA%E9%80%82%E5%BA%94%E5%88%AE%E5%88%AE%E4%B9%90%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="SSSの博客">
+<meta property="og:description" content="自适应、响应式刮刮乐实现，前端+请求接口实现，所需技术  移动端自适应rem + flexible.js布局 canvas绘制矩形以及文字，以及清除 offsetTop&#x2F;offsetLeft、scrollTop&#x2F;scrollLeft、clientX&#x2F;clientY基础知识 pc端鼠标事件mousedown&#x2F;mousemove&#x2F;mouseup,移动端touch事件touchstart&#x2F;touchmo">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-09-04T10:57:07.000Z">
+<meta property="article:modified_time" content="2021-09-04T11:52:20.470Z">
+<meta property="article:author" content="一只鸟">
+<meta property="article:tag" content="移动端">
+<meta property="article:tag" content="rem">
+<meta property="article:tag" content="flexible">
+<meta property="article:tag" content="刮刮乐">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://shasha-song.github.io/2021/09/04/%E8%87%AA%E9%80%82%E5%BA%94%E5%88%AE%E5%88%AE%E4%B9%90%E5%AE%9E%E7%8E%B0/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<title>自适应刮刮乐实现 | SSSの博客</title>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0bcc203b36fb6de4e18808e9e4841ec7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">SSSの博客</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一片两片三四片，五片六片七八片，鸡鸭鹅，牛羊猪</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="一只鸟"
+      src="/uploads/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">一只鸟</p>
+  <div class="site-description" itemprop="description">现在开始种树啦，树上住着我这只前端小菜鸟</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shasha-song" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shasha-song" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1144983277@qq.com" title="E-Mail → mailto:1144983277@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://shasha-song.github.io/2021/09/04/%E8%87%AA%E9%80%82%E5%BA%94%E5%88%AE%E5%88%AE%E4%B9%90%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+      <meta itemprop="name" content="一只鸟">
+      <meta itemprop="description" content="现在开始种树啦，树上住着我这只前端小菜鸟">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SSSの博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          自适应刮刮乐实现
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-09-04 18:57:07 / 修改时间：19:52:20" itemprop="dateCreated datePublished" datetime="2021-09-04T18:57:07+08:00">2021-09-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">web前端</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/web%E5%89%8D%E7%AB%AF/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/09/04/%E8%87%AA%E9%80%82%E5%BA%94%E5%88%AE%E5%88%AE%E4%B9%90%E5%AE%9E%E7%8E%B0/" class="post-meta-item leancloud_visitors" data-flag-title="自适应刮刮乐实现" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>自适应、响应式刮刮乐实现，前端+请求接口实现，所需技术</p>
+<ul>
+<li>移动端自适应rem + flexible.js布局</li>
+<li>canvas绘制矩形以及文字，以及清除</li>
+<li>offsetTop/offsetLeft、scrollTop/scrollLeft、clientX/clientY基础知识</li>
+<li>pc端鼠标事件mousedown/mousemove/mouseup,移动端touch事件touchstart/touchmove/touchend，事件监听</li>
+<li>axios请求</li>
+<li>scss书写样式，定位position</li>
+<li>设计稿为750px<span id="more"></span>
+<blockquote>
+<p>html文件</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;title&quot;</span>&gt;</span>开奖啦<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;happy_touch&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;inner_happy&quot;</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!-- 展示奖品区域 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;prize_content&quot;</span>&gt;</span>抽奖次数已用完<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;once_more&quot;</span>&gt;</span>再刮一次<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span> <span class="attr">id</span>=<span class="string">&quot;card&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;count_count&quot;</span>&gt;</span>今天还有<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;count&quot;</span>&gt;</span> 5 <span class="tag">&lt;/<span class="name">span</span>&gt;</span>次抽奖机会<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<blockquote>
+<p>css样式</p>
+</blockquote>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span>(<span class="attribute">min-width</span>:<span class="number">750px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">75px</span> <span class="meta">!important</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@function</span> to(<span class="variable">$px</span>) &#123;</span><br><span class="line">    <span class="comment">//$px为需要转换的字号</span></span><br><span class="line">    <span class="keyword">@return</span> <span class="variable">$px</span> / <span class="number">75px</span> * <span class="number">1rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 处理兼容性问题，添加私有前缀 前缀</span></span><br><span class="line"><span class="keyword">@mixin</span> webkit(<span class="variable">$type</span>, <span class="variable">$value</span>) &#123;</span><br><span class="line">    -webkit-#&#123;<span class="variable">$type</span>&#125;: <span class="variable">$value</span>;</span><br><span class="line">    -moz-#&#123;<span class="variable">$type</span>&#125;: <span class="variable">$value</span>;</span><br><span class="line">    -ms-#&#123;<span class="variable">$type</span>&#125;: <span class="variable">$value</span>;</span><br><span class="line">    -o-#&#123;<span class="variable">$type</span>&#125;: <span class="variable">$value</span>;</span><br><span class="line">    <span class="comment">// box-shadow: 0 0 18px rgba(0,0,0,.2);</span></span><br><span class="line">    #&#123;<span class="variable">$type</span>&#125;: <span class="variable">$value</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@mixin</span> webkitA(<span class="variable">$type</span>, <span class="variable">$value</span>) &#123;</span><br><span class="line">    <span class="comment">// background: -webkit-linear-gradient(#17a8fa, #108dd9);</span></span><br><span class="line">    #&#123;<span class="variable">$type</span>&#125;: -webkit-#&#123;<span class="variable">$value</span>&#125;;</span><br><span class="line">    #&#123;<span class="variable">$type</span>&#125;: -moz-#&#123;<span class="variable">$value</span>&#125;;</span><br><span class="line">    #&#123;<span class="variable">$type</span>&#125;: -ms-#&#123;<span class="variable">$value</span>&#125;;</span><br><span class="line">    #&#123;<span class="variable">$type</span>&#125;: -o-#&#123;<span class="variable">$value</span>&#125;;</span><br><span class="line">    #&#123;<span class="variable">$type</span>&#125;: <span class="variable">$value</span>;</span><br><span class="line">&#125;</span><br><span class="line">* &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">min-width</span>: <span class="number">320px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100vh</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#659191</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: auto;</span><br><span class="line">    <span class="selector-class">.title</span> &#123;</span><br><span class="line">        <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">        <span class="attribute">font-size</span>: to(<span class="number">80px</span>);</span><br><span class="line">        <span class="attribute">font-weight</span>: <span class="number">700</span>;</span><br><span class="line">        <span class="attribute">text-align</span>: center;</span><br><span class="line">        <span class="attribute">margin-top</span>: to(<span class="number">100px</span>);</span><br><span class="line">        <span class="attribute">text-shadow</span>: to(<span class="number">3px</span>) <span class="number">0</span> <span class="number">#000</span>, <span class="number">0</span> to(<span class="number">3px</span>) <span class="number">#000</span>, to(<span class="number">3px</span>) <span class="number">0</span> <span class="number">#000</span>, <span class="number">0</span> to(-<span class="number">3px</span>) <span class="number">#000</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.happy_touch</span> &#123;</span><br><span class="line">        <span class="attribute">position</span>: relative;</span><br><span class="line">        <span class="attribute">width</span>: to(<span class="number">546px</span>);</span><br><span class="line">        <span class="attribute">height</span>: to(<span class="number">294px</span>);</span><br><span class="line">        <span class="attribute">background-color</span>: <span class="number">#fefbdd</span>;</span><br><span class="line">        <span class="attribute">margin</span>: to(<span class="number">50px</span>) auto;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.inner_happy</span> &#123;</span><br><span class="line">        <span class="attribute">position</span>: absolute;</span><br><span class="line">        <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">        <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">        <span class="attribute">width</span>: to(<span class="number">546px</span>);</span><br><span class="line">        <span class="attribute">height</span>: to(<span class="number">294px</span>);</span><br><span class="line">        <span class="attribute">line-height</span>: to(<span class="number">294px</span>);</span><br><span class="line">        <span class="attribute">text-align</span>: center;</span><br><span class="line">        <span class="attribute">font-size</span>: to(<span class="number">60px</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.card</span> &#123;</span><br><span class="line">        <span class="attribute">position</span>: absolute;</span><br><span class="line">        <span class="attribute">left</span>: to(<span class="number">30px</span>);</span><br><span class="line">        <span class="attribute">top</span>: to(<span class="number">40px</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.once_more</span> &#123;</span><br><span class="line">        <span class="attribute">cursor</span>: pointer;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">14px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-class">.count_count</span> &#123;</span><br><span class="line">        <span class="attribute">text-align</span>: center;</span><br><span class="line">        <span class="selector-class">.count</span> &#123;</span><br><span class="line">            <span class="attribute">color</span>: gold;</span><br><span class="line">            <span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">            <span class="attribute">font-weight</span>: <span class="number">700</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>js代码实现</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断设备</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isMobile</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((navigator.userAgent.match(<span class="regexp">/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i</span>))) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ①首次渲染</span></span><br><span class="line"><span class="keyword">const</span> REM60PX = <span class="number">0.8</span></span><br><span class="line"><span class="keyword">const</span> REM80px = <span class="number">1.066667</span></span><br><span class="line"><span class="keyword">const</span> FONTSIZE40PX = <span class="number">0.533333</span></span><br><span class="line"><span class="keyword">let</span> curScreenX = <span class="built_in">document</span>.documentElement.clientWidth</span><br><span class="line"><span class="keyword">let</span> rem = curScreenX / <span class="number">10</span></span><br><span class="line"><span class="keyword">if</span> (rem &gt; <span class="number">75</span>) rem = <span class="number">75</span></span><br><span class="line"><span class="keyword">let</span> curPaddingLeft = rem * REM60PX</span><br><span class="line"><span class="keyword">let</span> curPaddingTop = rem * REM80px</span><br><span class="line"><span class="keyword">let</span> curFontSize = rem * FONTSIZE40PX</span><br><span class="line"><span class="keyword">let</span> outEle = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.happy_touch&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> canvas = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#card&#x27;</span>)</span><br><span class="line"><span class="keyword">let</span> ctx = canvas.getContext(<span class="string">&quot;2d&quot;</span>)</span><br><span class="line"><span class="comment">// 绘制canvas图层</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">runCanvas</span>(<span class="params">canvas</span>) </span>&#123;</span><br><span class="line">    canvas.width = outEle.clientWidth - curPaddingLeft</span><br><span class="line">    canvas.height = outEle.clientHeight - curPaddingTop</span><br><span class="line">    ctx.fillStyle = <span class="string">&#x27;#c6c6c6&#x27;</span></span><br><span class="line">    ctx.fillRect(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height)</span><br><span class="line">    ctx.fillStyle = <span class="string">&#x27;#818181&#x27;</span></span><br><span class="line">    ctx.font = <span class="string">&#x27;40px 微软雅黑&#x27;</span></span><br><span class="line">    ctx.textAlign = <span class="string">&#x27;center&#x27;</span></span><br><span class="line">    ctx.textBaseline = <span class="string">&#x27;middle&#x27;</span></span><br><span class="line">    ctx.fillText(<span class="string">&#x27;刮刮卡&#x27;</span>, canvas.width / <span class="number">2</span>, canvas.height / <span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ②首次绘制</span></span><br><span class="line">runCanvas(canvas)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 奖品区域</span></span><br><span class="line"><span class="keyword">let</span> content = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.prize_content&#x27;</span>)</span><br><span class="line"><span class="comment">// 次数区域</span></span><br><span class="line"><span class="keyword">let</span> countContainer = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.count&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> is = isMobile() <span class="comment">// 判断是否是移动端</span></span><br><span class="line"><span class="keyword">let</span> isDown = <span class="literal">false</span></span><br><span class="line"><span class="keyword">let</span> isFirst = <span class="literal">true</span></span><br><span class="line"><span class="comment">// ③进入页面获取次数--后续所有操作最好都放在此处，否则网速慢的情况下，用户手快会存在问题的</span></span><br><span class="line">axios(&#123; <span class="attr">method</span>: <span class="string">&quot;post&quot;</span>, <span class="attr">url</span>: <span class="string">&quot;http://localhost:3001/prize-count&quot;</span> &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;首次剩余抽奖次数:&#x27;</span>, res.data.count);</span><br><span class="line">    <span class="keyword">let</span> count = res.data.count</span><br><span class="line">    countOut = res.data.count</span><br><span class="line">    countContainer.innerHTML = res.data.count</span><br><span class="line">    <span class="keyword">let</span> more = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.once_more&#x27;</span>)</span><br><span class="line">    <span class="comment">// ⑤再刮一次点击事件</span></span><br><span class="line">    more.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (countContainer.innerHTML == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// ⑤-1如果没有次数则提醒用户，且不再重新绘制canvas，不允许移动清除画布，不请求奖品接口</span></span><br><span class="line">            alert(<span class="string">&#x27;今日抽奖机会已用尽&#x27;</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 否则重新绘制画布，并允许清除画布</span></span><br><span class="line">        <span class="comment">// 重新绘制canvas</span></span><br><span class="line">        runCanvas(canvas)</span><br><span class="line">        isFirst = <span class="literal">true</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">if</span> (count === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// ④首次进入页面判断是否有抽奖机会，如果没有则不允许移动清除画布，不请求奖品接口</span></span><br><span class="line">        isFirst = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ⑥鼠标事件-手指事件</span></span><br><span class="line">    canvas.addEventListener(is ? <span class="string">&#x27;touchstart&#x27;</span> : <span class="string">&#x27;mousedown&#x27;</span>, <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">        isDown = <span class="literal">true</span></span><br><span class="line">        <span class="comment">// 如果有抽奖机会，第一次按下，按下的时候请求奖品接口，并监听move事件</span></span><br><span class="line">        <span class="keyword">if</span> (isFirst) &#123;</span><br><span class="line">          <span class="comment">// 请求奖品接口</span></span><br><span class="line">            <span class="keyword">let</span> &#123; <span class="attr">data</span>: prize &#125; = <span class="keyword">await</span> axios(&#123; <span class="attr">method</span>: <span class="string">&quot;post&quot;</span>, <span class="attr">url</span>: <span class="string">&quot;http://localhost:3001/prize&quot;</span> &#125;)</span><br><span class="line">            isFirst = <span class="literal">false</span></span><br><span class="line">            content.innerHTML = prize</span><br><span class="line">            <span class="comment">// console.log(prize);</span></span><br><span class="line">            <span class="comment">// 抽奖完成一次请求接口获取剩余次数</span></span><br><span class="line">            <span class="keyword">let</span> &#123; <span class="attr">data</span>: &#123; count &#125; &#125; = <span class="keyword">await</span> axios(&#123; <span class="attr">method</span>: <span class="string">&quot;post&quot;</span>, <span class="attr">url</span>: <span class="string">&quot;http://localhost:3001/prize-count&quot;</span> &#125;)</span><br><span class="line">            <span class="comment">// console.log(&#x27;剩余抽奖次数:&#x27;, count);</span></span><br><span class="line">            countContainer.innerHTML = count</span><br><span class="line">            <span class="comment">// 移动事件--</span></span><br><span class="line">            canvas.addEventListener(is ? <span class="string">&#x27;touchmove&#x27;</span> : <span class="string">&#x27;mousemove&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (isDown) &#123;</span><br><span class="line">                    <span class="keyword">let</span> touch</span><br><span class="line">                    e.changedTouches &amp;&amp; (touch = e.changedTouches[<span class="number">0</span>])</span><br><span class="line">                    <span class="keyword">let</span> X = e.clientX || touch.clientX;</span><br><span class="line">                    <span class="keyword">let</span> Y = e.clientY || touch.clientY;</span><br><span class="line">                    <span class="keyword">let</span> T = <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">                    <span class="keyword">let</span> L = <span class="built_in">document</span>.documentElement.scrollLeft</span><br><span class="line">                    <span class="comment">// canvas坐标</span></span><br><span class="line">                    <span class="keyword">let</span> x = X - (outEle.offsetLeft + curPaddingLeft / <span class="number">2</span>) + L</span><br><span class="line">                    <span class="keyword">let</span> y = Y - (outEle.offsetTop + curPaddingTop / <span class="number">2</span>) + T</span><br><span class="line">                    ctx.fillStyle = <span class="string">&#x27;#fff&#x27;</span></span><br><span class="line">                    ctx.globalCompositeOperation = <span class="string">&#x27;destination-out&#x27;</span></span><br><span class="line">                    <span class="comment">// 画⚪ 参数：x，y轴坐标，半径，弧度0到360</span></span><br><span class="line">                    ctx.arc(x, y, <span class="number">30</span>, <span class="number">0</span>, <span class="built_in">Math</span>.PI * <span class="number">2</span>)</span><br><span class="line">                    ctx.fill()</span><br><span class="line">                    <span class="comment">// 计算滑动面积---如何计算？</span></span><br><span class="line">                    <span class="comment">/**</span></span><br><span class="line"><span class="comment">                     * 计算移动面积代码未实现</span></span><br><span class="line"><span class="comment">                     * </span></span><br><span class="line"><span class="comment">                     * </span></span><br><span class="line"><span class="comment">                    */</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    canvas.addEventListener(is ? <span class="string">&#x27;touchend&#x27;</span> : <span class="string">&#x27;mouseup&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        isDown = <span class="literal">false</span></span><br><span class="line">        <span class="comment">// 抬起时面积大于1/2就直接清除画布</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">          * 清除画布功能代码实现</span></span><br><span class="line"><span class="comment">          * </span></span><br><span class="line"><span class="comment">          * </span></span><br><span class="line"><span class="comment">          */</span></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 以下最好放在次数接口请求异步成功后，暂时放在这里也无问题，用户一般不会一上来就点击再刮一次</span></span><br><span class="line"><span class="comment">// 否则会有bug</span></span><br><span class="line"><span class="comment">// let more = document.querySelector(&#x27;.once_more&#x27;)</span></span><br><span class="line"><span class="comment">// more.addEventListener(&#x27;click&#x27;, function () &#123;</span></span><br><span class="line"><span class="comment">//     if (countContainer.innerHTML == 0) &#123;</span></span><br><span class="line"><span class="comment">//         // z如果没有次数则提醒用户，且不再重新绘制canvas，不允许移动清除画布，不请求奖品接口</span></span><br><span class="line"><span class="comment">//         alert(&#x27;今日抽奖机会已用尽&#x27;)</span></span><br><span class="line"><span class="comment">//         return</span></span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"><span class="comment">//     // 否则重新绘制画布，并允许清除画布</span></span><br><span class="line"><span class="comment">//     // 重新绘制canvas</span></span><br><span class="line"><span class="comment">//     runCanvas(canvas)</span></span><br><span class="line"><span class="comment">//     isFirst = true</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**都应该放在次数接口请求成功以后</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// canvas.addEventListener(is ? &#x27;touchstart&#x27; : &#x27;mousedown&#x27;, async function (e) &#123;</span></span><br><span class="line"><span class="comment">//     isDown = true</span></span><br><span class="line"><span class="comment">//     // 按下的时候请求奖品接口</span></span><br><span class="line"><span class="comment">//     if (isFirst) &#123;</span></span><br><span class="line"><span class="comment">//         let &#123; data: prize &#125; = await axios(&#123; method: &quot;post&quot;, url: &quot;http://localhost:3001/prize&quot; &#125;)</span></span><br><span class="line"><span class="comment">//         isFirst = false</span></span><br><span class="line"><span class="comment">//         content.innerHTML = prize</span></span><br><span class="line"><span class="comment">//         console.log(prize);</span></span><br><span class="line"><span class="comment">//         let &#123; data: &#123; count &#125; &#125; = await axios(&#123; method: &quot;post&quot;, url: &quot;http://localhost:3001/prize-count&quot; &#125;)</span></span><br><span class="line"><span class="comment">//         console.log(&#x27;剩余抽奖次数:&#x27;, count);</span></span><br><span class="line"><span class="comment">//         countContainer.innerHTML = count</span></span><br><span class="line"><span class="comment">//         // 移动事件</span></span><br><span class="line"><span class="comment">//         canvas.addEventListener(is ? &#x27;touchmove&#x27; : &#x27;mousemove&#x27;, function (e) &#123;</span></span><br><span class="line"><span class="comment">//             if (isDown) &#123;</span></span><br><span class="line"><span class="comment">//                 let touch</span></span><br><span class="line"><span class="comment">//                 e.changedTouches &amp;&amp; (touch = e.changedTouches[0])</span></span><br><span class="line"><span class="comment">//                 let X = e.clientX || touch.clientX;</span></span><br><span class="line"><span class="comment">//                 let Y = e.clientY || touch.clientY;</span></span><br><span class="line"><span class="comment">//                 let T = document.documentElement.scrollTop;</span></span><br><span class="line"><span class="comment">//                 let L = document.documentElement.scrollLeft</span></span><br><span class="line"><span class="comment">//                 let x = X - (outEle.offsetLeft + curPaddingLeft / 2) + L</span></span><br><span class="line"><span class="comment">//                 let y = Y - (outEle.offsetTop + curPaddingTop / 2) + T</span></span><br><span class="line"><span class="comment">//                 ctx.fillStyle = &#x27;#fff&#x27;</span></span><br><span class="line"><span class="comment">//                 ctx.globalCompositeOperation = &#x27;destination-out&#x27;</span></span><br><span class="line"><span class="comment">//                 ctx.arc(x, y, 30, 0, Math.PI * 2)</span></span><br><span class="line"><span class="comment">//                 ctx.fill()</span></span><br><span class="line"><span class="comment">//                 // 计算滑动面积---如何计算？</span></span><br><span class="line"><span class="comment">//             &#125;</span></span><br><span class="line"><span class="comment">//         &#125;)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// canvas.addEventListener(is ? &#x27;touchend&#x27; : &#x27;mouseup&#x27;, function () &#123;</span></span><br><span class="line"><span class="comment">//     isDown = false</span></span><br><span class="line"><span class="comment">//     // 抬起时面积大于1/2就直接清除画布</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"><span class="comment">// // 响应式，可不用</span></span><br><span class="line"><span class="built_in">window</span>.onresize = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">222222</span>);</span><br><span class="line">    <span class="keyword">const</span> REM60PX = <span class="number">0.8</span></span><br><span class="line">    <span class="keyword">const</span> REM80px = <span class="number">1.066667</span></span><br><span class="line">    <span class="keyword">const</span> FONTSIZE40PX = <span class="number">0.533333</span></span><br><span class="line">    <span class="keyword">let</span> curScreenX = <span class="built_in">document</span>.documentElement.clientWidth</span><br><span class="line">    <span class="keyword">let</span> rem = curScreenX / <span class="number">10</span></span><br><span class="line">    <span class="keyword">if</span> (rem &gt; <span class="number">75</span>) rem = <span class="number">75</span></span><br><span class="line">    <span class="keyword">let</span> curPaddingLeft = rem * REM60PX</span><br><span class="line">    <span class="keyword">let</span> curPaddingTop = rem * REM80px</span><br><span class="line">    <span class="keyword">let</span> curFontSize = rem * FONTSIZE40PX</span><br><span class="line">    <span class="keyword">let</span> outEle = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;.happy_touch&#x27;</span>)</span><br><span class="line">    <span class="keyword">let</span> canvas = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;#card&#x27;</span>)</span><br><span class="line">    <span class="keyword">let</span> ctx = canvas.getContext(<span class="string">&quot;2d&quot;</span>)</span><br><span class="line">    canvas.width = outEle.clientWidth - curPaddingLeft</span><br><span class="line">    canvas.height = outEle.clientHeight - curPaddingTop</span><br><span class="line">    ctx.fillStyle = <span class="string">&#x27;#c6c6c6&#x27;</span></span><br><span class="line">    ctx.fillRect(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height)</span><br><span class="line">    ctx.fillStyle = <span class="string">&#x27;#818181&#x27;</span></span><br><span class="line">    ctx.font = <span class="string">&#x27;40px 微软雅黑&#x27;</span></span><br><span class="line">    ctx.textAlign = <span class="string">&#x27;center&#x27;</span></span><br><span class="line">    ctx.textBaseline = <span class="string">&#x27;middle&#x27;</span></span><br><span class="line">    ctx.fillText(<span class="string">&#x27;刮刮卡&#x27;</span>, canvas.width / <span class="number">2</span>, canvas.height / <span class="number">2</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>接口代码node实现，主要用来测试，功能并不完善,再次测试，重启服务即可</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  引入express框架</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)</span><br><span class="line"><span class="comment">// 创建网站服务器</span></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"><span class="comment">// 路径处理模块</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">&#x27;body-parser&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 静态资源访问服务功能</span></span><br><span class="line">app.use(express.static(path.join(__dirname, <span class="string">&#x27;public&#x27;</span>))); <span class="comment">//访问public文件夹里面的index.html文件</span></span><br><span class="line"><span class="comment">// 处理参数 json格式与表单提交数据</span></span><br><span class="line">app.use(bodyParser.json());</span><br><span class="line">app.use(bodyParser.urlencoded(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;))</span><br><span class="line"><span class="comment">// 拦截所有请求,设置允许跨域访问该服务</span></span><br><span class="line">app.all(<span class="string">&#x27;*&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 允许所有客户端发送请求</span></span><br><span class="line">    res.header(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>, <span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">    <span class="comment">// 允许客户端请求的方法</span></span><br><span class="line">    res.header(<span class="string">&#x27;Access-Control-Allow-Methods&#x27;</span>, <span class="string">&#x27;get,post,delete,put,options&#x27;</span>);</span><br><span class="line">    <span class="comment">// </span></span><br><span class="line">    res.header(<span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span>, <span class="string">&#x27;X-Requested-With&#x27;</span>);</span><br><span class="line">    <span class="comment">// </span></span><br><span class="line">    res.header(<span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span>, <span class="string">&#x27;Content-Type&#x27;</span>);</span><br><span class="line">    <span class="comment">// 允许客户端发送请求时携带cookie</span></span><br><span class="line">    <span class="comment">// res.header(&#x27;Access-Control-Allow-Credentials&#x27;, true);</span></span><br><span class="line">    next();</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">5</span></span><br><span class="line"><span class="comment">// 刮刮乐中奖接口</span></span><br><span class="line">app.post(<span class="string">&#x27;/prize&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> arr = [<span class="string">&#x27;一个亿&#x27;</span>, <span class="string">&#x27;跑车一辆&#x27;</span>, <span class="string">&#x27;辣条一包&#x27;</span>, <span class="string">&#x27;瓶盖一个&#x27;</span>, <span class="string">&#x27;谢谢惠顾&#x27;</span>]</span><br><span class="line">    <span class="keyword">let</span> random = <span class="built_in">Math</span>.trunc(<span class="built_in">Math</span>.random() * <span class="number">5</span>)</span><br><span class="line">    count--</span><br><span class="line">    res.send(arr[random])</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 查询剩余抽奖次数</span></span><br><span class="line">app.post(<span class="string">&#x27;/prize-count&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (count === <span class="number">0</span>) count = <span class="number">0</span></span><br><span class="line">    res.send(&#123; count &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听端口</span></span><br><span class="line">app.listen(<span class="number">3001</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;running........&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/" rel="tag"># 移动端</a>
+              <a href="/tags/rem/" rel="tag"># rem</a>
+              <a href="/tags/flexible/" rel="tag"># flexible</a>
+              <a href="/tags/%E5%88%AE%E5%88%AE%E4%B9%90/" rel="tag"># 刮刮乐</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/15/%E7%80%91%E5%B8%83%E6%B5%81%E5%B8%83%E5%B1%80%E4%BB%A5%E5%8F%8A%E6%87%92%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0-%E5%8E%9F%E7%94%9Fjs%E4%BB%A5%E5%8F%8Avue/" rel="prev" title="瀑布流布局以及懒加载实现-原生js以及vue">
+                  <i class="fa fa-chevron-left"></i> 瀑布流布局以及懒加载实现-原生js以及vue
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81Mjg1OS8yOTMzNw=="></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Song Shasha</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">52k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">47 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"Uj1JM9X7G8PTG5CETJGy710i-9Nh9j0Va","app_key":"djBQuONjOv9B6RAOWDQmgfsQ","server_url":null,"security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2021/09/04/自适应刮刮乐实现/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
